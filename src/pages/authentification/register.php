@@ -32,21 +32,25 @@
                     <div class="flex flex-col pt-4">
                         <label for="name" class="text-lg">Name</label>
                         <input type="text" id="nameInput" placeholder="John Smith" name="name" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mt-1 leading-tight focus:outline-none focus:shadow-outline" />
+                        <span class="hidden text-red-500">Name Incorrect</span>
                     </div>
 
                     <div class="flex flex-col pt-4">
                         <label for="email" class="text-lg">Email</label>
                         <input type="email" id="emailInput" placeholder="your@email.com" name="email" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mt-1 leading-tight focus:outline-none focus:shadow-outline" />
+                        <span class="hidden text-red-500">Email Incorrect</span>
                     </div>
     
                     <div class="flex flex-col pt-4">
                         <label for="passwordInput" class="text-lg">Password</label>
                         <input type="password" id="passwordInput" placeholder="Password" name="password" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mt-1 leading-tight focus:outline-none focus:shadow-outline" />
+                        <span class="hidden text-red-500">password Incorrect</span>
                     </div>
 
                     <div class="flex flex-col pt-4">
                         <label for="confirmPassword" class="text-lg">Confirm Password</label>
                         <input type="password" id="confirmPassword" placeholder="Password" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mt-1 leading-tight focus:outline-none focus:shadow-outline" />
+                        <span class="hidden text-red-500">Password Doesn't match</span>
                     </div>
     
                     <input type="submit" value="Register" class="bg-blue-300 text-white font-bold text-lg hover:bg-gray-700 p-2 mt-8" />
