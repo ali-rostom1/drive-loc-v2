@@ -5,8 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Register</title>
     <!-- Tailwind -->
-    <link rel="stylesheet" href="../assets/css/output.css">
-    <link rel="stylesheet" href="../assets/css/input.css">
+    <link rel="stylesheet" href="../../assets/css/output.css">
+    <link rel="stylesheet" href="../../assets/css/input.css">
     <style>
         @import url('https://fonts.googleapis.com/css?family=Karla:400,700&display=swap');
 
@@ -23,7 +23,7 @@
         <div class="w-full lg:w-1/2 flex flex-col">
 
             <div class="flex justify-center md:justify-start pt-12 md:pl-12 md:-mb-12">
-                <a href="../" class="bg-red-500 text-white font-bold text-xl p-4">Dine With Us</a>
+                <a href="../../" class="bg-red-500 text-white font-bold text-xl p-4">Dine With Us</a>
             </div>
 
             <div class="flex flex-col justify-center md:justify-start my-auto pt-8 md:pt-0 px-8 md:px-24 lg:px-32">
@@ -63,6 +63,6 @@
             <img class="object-cover w-full h-screen hidden md:block" src="../assets/images/signup_img.jpg" alt="Background" />
         </div>
     </div>
-    <script src="../assets/js/register.js"></script>
+    <script src="../../assets/js/register.js"></script>
 </body>
 </html>
