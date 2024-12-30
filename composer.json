@@ -1,0 +1,15 @@
+{
+    "name": "aliro/drive-loc",
+    "autoload": {
+        "psr-4": {
+            "Aliro\\DriveLoc\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "ali-rostom1",
+            "email": "ali.rostom220@gmail.com"
+        }
+    ],
+    "require": {}
+}
