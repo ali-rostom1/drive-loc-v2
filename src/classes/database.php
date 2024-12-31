@@ -18,7 +18,12 @@
                 die("connection failed : ".$e->getMessage());
             }
         }
-
+        protected function selectAll($table){
+            $sql = "SELECT * FROM $table";
+            $result = $this->con->query($sql);
+            $result = $result->fetchAll(PDO::FETCH_ASSOC);
+            return $result;
+        }
     }
 
 ?>
