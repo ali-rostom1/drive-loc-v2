@@ -79,7 +79,13 @@
             $sql = "SELECT * FROM $table";
             $this->con->query($sql);
         }
-        
+        protected function deleteWhere($table,$conditionColumn,$conditionValue){
+            $sql = "DELETE FROM $table WHERE $conditionColumn = :conditionValue ;";
+            $type = is_int($conditionValue) ? PDO::PARAM_INT : PDO::PARAM_STR;
+            $stmt = $this->con->prepare($sql);
+            $stmt->bindValue(":conditionValue",$conditionValue,$type);
+            $stmt->execute();
+        }
 
     }
 
