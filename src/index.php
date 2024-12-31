@@ -45,7 +45,7 @@
                         <div class="px-4 w-full md:w-9/12 xl:w-7/12 2xl:w-6/12"> 
                             <p class="font-bold font-sans mb-1 text-2xl text-white">Car Rentals</p>
                             <h1 class="font-bold mb-6 text-5xl text-white md:leading-tight lg:leading-tight lg:text-6xl">For Your <span class="text-primary-500">Everyday Commute</span> or <span class="text-primary-500">Leisure</span></h1>
-                            <div class="bg-white p-6">
+                            <div class="bg-white p-6 rounded-lg">
                                 <h2 class="font-bold mb-2 text-gray-900 text-xl">Let&apos;s find your ideal car</h2>
                                 <form> 
                                     <div class="-mx-2 flex flex-wrap items-center">
