@@ -75,6 +75,12 @@
             $result->execute();
 
         }
+        protected function deleteAll($table){
+            $sql = "SELECT * FROM $table";
+            $this->con->query($sql);
+        }
+        
+
     }
 
 ?>
