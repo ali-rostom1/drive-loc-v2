@@ -33,7 +33,7 @@
                         </div>
                         <div class="flex-wrap inline-flex items-center py-1 space-x-2"> 
                             <a href="ratings.php" class="border border-primary-500 hover:bg-primary-500 hover:text-white inline-block px-6 py-2 text-primary-500 rounded-lg">My Ratings</a>
-                            <a href="#" class="border border-primary-500 hover:bg-primary-500 hover:text-white inline-block px-6 py-2 text-primary-500 rounded-lg">Reservations</a>
+                            <a href="#" class="border border-primary-500 bg-primary-500 text-white inline-block px-6 py-2  rounded-lg">Reservations</a>
                             <a href="#" class="bg-primary-500 border border-primary-500 hover:bg-primary-600 inline-block px-6 py-2 text-white rounded-lg">Log out</a> 
                         </div>                         
                     </div>                     

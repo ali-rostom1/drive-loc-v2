@@ -25,7 +25,7 @@
                     </button>                     
                     <div class="flex-1 hidden space-y-2 w-full lg:flex lg:items-center lg:justify-around lg:space-x-4 lg:space-y-0 lg:w-auto" data-name="nav-menu"> 
                         <div class="flex flex-col mr-auto lg:flex-row"> 
-                            <a href="#" class="text-gray-400 lg:p-4 py-2 text-white">Home</a>
+                            <a href="#" class="text-gray-400 lg:p-4 py-2 ">Home</a>
                             <a href="pages/clientPages/categories.php" class="hover:text-gray-400 lg:p-4 py-2 text-white">Categories</a>
                             <a href="pages/clientPages/vehicles.php" class="hover:text-gray-400 lg:p-4 py-2 text-white">Vehicles</a>
                         </div>
