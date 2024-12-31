@@ -3,7 +3,7 @@
     <head data-pg-collapsed>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-        <title>Reservations</title>
+        <title>Ratings</title>
         <link rel="stylesheet" href="../../assets/css/input.css">
         <link rel="stylesheet" href="../../assets/css/output.css">
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flowbite@2.5.2/dist/flowbite.min.css">
@@ -28,12 +28,12 @@
                     <div class="flex-1 hidden space-y-2 w-full lg:flex lg:items-center lg:justify-around lg:space-x-4 lg:space-y-0 lg:w-auto" data-name="nav-menu"> 
                         <div class="flex flex-col mr-auto lg:flex-row"> 
                             <a href="../../" class="hover:text-gray-400 lg:p-4 py-2 text-white">Home</a>
-                            <a href="categories.php" class="hover:text-gray-400 lg:p-4 py-2 text-white">Categories</a>
+                            <a href="#" class="text-gray-400 lg:p-4 py-2 text-white">Categories</a>
                             <a href="vehicles.php" class="hover:text-gray-400 lg:p-4 py-2 text-white">Vehicles</a>
                         </div>
                         <div class="flex-wrap inline-flex items-center py-1 space-x-2"> 
                             <a href="ratings.php" class="border border-primary-500 hover:bg-primary-500 hover:text-white inline-block px-6 py-2 text-primary-500 rounded-lg">My Ratings</a>
-                            <a href="#" class="border border-primary-500 hover:bg-primary-500 hover:text-white inline-block px-6 py-2 text-primary-500 rounded-lg">Reservations</a>
+                            <a href="reservations.php" class="border border-primary-500 hover:bg-primary-500 hover:text-white inline-block px-6 py-2 text-primary-500 rounded-lg">Reservations</a>
                             <a href="#" class="bg-primary-500 border border-primary-500 hover:bg-primary-600 inline-block px-6 py-2 text-white rounded-lg">Log out</a> 
                         </div>                         
                     </div>                     
@@ -44,13 +44,13 @@
             <div class="container mx-auto px-4"> 
                 <div class="-mx-4 flex flex-wrap items-center mb-6"> 
                     <div class="px-4 w-full md:flex-1"> 
-                        <h3 class="capitalize font-bold mb-4 text-4xl text-gray-900">Your Reservations</h3>
+                        <h3 class="capitalize font-bold mb-4 text-4xl text-gray-900">Your Ratings</h3>
                         <div class="bg-primary-500 mb-6 pb-1 w-2/12"></div>                             
                     </div>                         
                 </div>
                 <div class="relative overflow-x-auto shadow-md sm:rounded-lg lg:w-2/3 mx-auto">
                     <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
-                        <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                        <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400 text-center">
                             <tr>
                                 <th scope="col" class="px-6 py-3">
                                     Vehicle Model
@@ -65,12 +65,9 @@
                                     Price
                                 </th>
                                 <th scope="col" class="px-6 py-3">
-                                    Date
+                                    Rating
                                 </th>
-                                <th scope="col" class="px-6 py-3">
-                                    Status
-                                </th>
-                                <th scope="col" class="px-6 py-3">
+                                <th scope="col" class="px-6 py-3 ">
                                     Actions
                                 </th>
                             </tr>
@@ -90,14 +87,32 @@
                                     $2999
                                 </td>
                                 <td class="px-6 py-4">
-                                    22/11/2002
+                                    
+
+                                    <div id="rating" class="flex items-center">
+                                        <svg class="w-4 h-4 text-yellow-300 ms-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 22 20">
+                                            <path d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z"/>
+                                        </svg>
+                                        <svg class="w-4 h-4 text-yellow-300 ms-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 22 20">
+                                            <path d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z"/>
+                                        </svg>
+                                        <svg class="w-4 h-4 text-yellow-300 ms-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 22 20">
+                                            <path d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z"/>
+                                        </svg>
+                                        <svg class="w-4 h-4 text-yellow-300 ms-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 22 20">
+                                            <path d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z"/>
+                                        </svg>
+                                        <svg class="w-4 h-4 ms-1 text-gray-300 dark:text-gray-500 hover:text-yellow-300" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 22 20">
+                                            <path d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z"/>
+                                        </svg>
+                                    </div>
+
                                 </td>
-                                <td class="px-6 py-4">
-                                    Pending
-                                </td>
-                                <td class="px-6 py-4 flex justify-around items-center">
+                                <td class="px-6 py-4 flex justify-between items-center">
                                     <a href="#" class=""><i class="fa-solid fa-ban text-red-500 hover:scale-125 transition duration-300"></i></a>
                                     <a href="#" class="font-medium text-blue-600 dark:text-blue-500 hover:underline hover:scale-125 transition duration-300">Edit</a>
+                                    <a class="font-medium text-green-500 dark:text-blue-500 hover:underline hover:scale-125 transition duration-300">Save</a>
+
                                 </td>
                             </tr>
                             
