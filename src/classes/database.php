@@ -24,6 +24,14 @@
             $result = $result->fetchAll(PDO::FETCH_ASSOC);
             return $result;
         }
+        protected function selectWhere($table,$conditionColumn,$conditionValue){
+            $sql = "SELECT * FROM $table WHERE $conditionColumn = :conditionValue";
+            $result = $this->con->prepare($sql);
+            $type = is_int($conditionValue) ? PDO::PARAM_INT : PDO::PARAM_STR;
+            $result->bindParam(":conditionValue",$conditionValue,$type);
+            $result->execute();
+            return $result->fetchAll(PDO::FETCH_ASSOC);
+        }
     }
 
 ?>
