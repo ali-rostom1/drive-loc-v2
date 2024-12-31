@@ -52,7 +52,29 @@
             }
             $result->execute();
         }
-        
+        protected function update($table,$values,$conditionColumn,$conditionValue){
+
+            $columns = "";
+
+            foreach($values as $key=>$value){
+                $columns .= $key . " = :". $key . ",";
+            }
+
+            $columns = rtrim($columns,",");
+
+            $sql = "UPDATE $table SET $columns WHERE $conditionColumn = :conditionValue";
+
+            $result = $this->con->prepare($sql);
+            
+            foreach($values as $ley=>$value){
+                $type = is_int($value) ? PDO::PARAM_INT : PDO::PARAM_STR;
+                $result->bindValue(":".$key,$value,$type);
+            }
+            $type = is_int($conditionValue) ? PDO::PARAM_INT : PDO::PARAM_STR;
+            $result->bindValue(":conditionValue",$conditionValue,$type);
+            $result->execute();
+
+        }
     }
 
 ?>
