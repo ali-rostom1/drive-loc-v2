@@ -63,5 +63,7 @@ create table rating_user_relation(
 insert into category(name_cat,desc_cat,img_url) values
 ("Sports Cars","Lorem ipsum dolor, sit amet consectetur adipisicing elit.","https://images.unsplash.com/photo-1619767886558-efdc259cde1a?ixid=MnwyMDkyMnwwfDF8c2VhcmNofDMyM3x8c3V2fGVufDB8fHx8MTYzMTY4Njc4Nw&ixlib=rb-1.2.1q=85&fm=jpg&crop=faces&cs=srgb&w=600&h=450&fit=crop");
 
+alter table vehicle
+modify img_path varchar(255);
 insert into vehicle(model_vehicle,desc_vehicle,brand_vehicle,price,available,img_path,id_cat) values
-("Chevrolet Equinox 2005","Lorem ipsum dolor, sit amet consectetur adipisicing elit.","chevrolet","55.00","https://images.unsplash.com/photo-1552519507-da3b142c6e3d?ixid=MnwyMDkyMnwwfDF8c2VhcmNofDMwfHxzcG9ydHMlMjBjYXJ8ZW58MHx8fHwxNjMxNjg3MzQ4&ixlib=rb-1.2.1q=85&fm=jpg&crop=faces&cs=srgb&w=600&h=450&fit=crop",1);
+("Chevrolet Equinox 2005","Lorem ipsum dolor, sit amet consectetur adipisicing elit.","chevrolet","55.00",1,"https://images.unsplash.com/photo-1552519507-da3b142c6e3d?ixid=MnwyMDkyMnwwfDF8c2VhcmNofDMwfHxzcG9ydHMlMjBjYXJ8ZW58MHx8fHwxNjMxNjg3MzQ4&ixlib=rb-1.2.1q=85&fm=jpg&crop=faces&cs=srgb&w=600&h=450&fit=crop",1);
