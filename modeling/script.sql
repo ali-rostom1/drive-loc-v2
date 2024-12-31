@@ -4,7 +4,8 @@ use drive_loc;
 create table category(
 	id_cat int not null auto_increment Primary key,
     name_cat varchar(50) not null unique,
-	desc_cat varchar(255) not null unique
+	desc_cat varchar(255) not null unique,
+    img_url varchar(255) not null
 );
 
 create table vehicle(
@@ -58,4 +59,7 @@ create table rating_user_relation(
     foreign key (user_id) references user(id_user)on delete cascade
 );
 
+
+insert into category(name_cat,desc_cat,img_url) values
+("Sports Cars","Lorem ipsum dolor, sit amet consectetur adipisicing elit.","https://images.unsplash.com/photo-1619767886558-efdc259cde1a?ixid=MnwyMDkyMnwwfDF8c2VhcmNofDMyM3x8c3V2fGVufDB8fHx8MTYzMTY4Njc4Nw&ixlib=rb-1.2.1q=85&fm=jpg&crop=faces&cs=srgb&w=600&h=450&fit=crop");
 
