@@ -3,9 +3,11 @@
     <head data-pg-collapsed>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-        <title>Vehicles</title>
+        <title>Drive & Loc</title>
         <link rel="stylesheet" href="../../assets/css/input.css">
         <link rel="stylesheet" href="../../assets/css/output.css">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flowbite@2.5.2/dist/flowbite.min.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
         <script>/* Pinegrow Interactions, do not remove */ (function(){try{if(!document.documentElement.hasAttribute('data-pg-ia-disabled')) { window.pgia_small_mq=typeof pgia_small_mq=='string'?pgia_small_mq:'(max-width:767px)';window.pgia_large_mq=typeof pgia_large_mq=='string'?pgia_large_mq:'(min-width:768px)';var style = document.createElement('style');var pgcss='html:not(.pg-ia-no-preview) [data-pg-ia-hide=""] {opacity:0;visibility:hidden;}html:not(.pg-ia-no-preview) [data-pg-ia-show=""] {opacity:1;visibility:visible;display:block;}';if(document.documentElement.hasAttribute('data-pg-id') && document.documentElement.hasAttribute('data-pg-mobile')) {pgia_small_mq='(min-width:0)';pgia_large_mq='(min-width:99999px)'} pgcss+='@media ' + pgia_small_mq + '{ html:not(.pg-ia-no-preview) [data-pg-ia-hide="mobile"] {opacity:0;visibility:hidden;}html:not(.pg-ia-no-preview) [data-pg-ia-show="mobile"] {opacity:1;visibility:visible;display:block;}}';pgcss+='@media ' + pgia_large_mq + '{html:not(.pg-ia-no-preview) [data-pg-ia-hide="desktop"] {opacity:0;visibility:hidden;}html:not(.pg-ia-no-preview) [data-pg-ia-show="desktop"] {opacity:1;visibility:visible;display:block;}}';style.innerHTML=pgcss;document.querySelector('head').appendChild(style);}}catch(e){console&&console.log(e);}})()</script>
     </head>
     <body class="font-serif text-gray-500"> 
@@ -26,54 +28,85 @@
                     <div class="flex-1 hidden space-y-2 w-full lg:flex lg:items-center lg:justify-around lg:space-x-4 lg:space-y-0 lg:w-auto" data-name="nav-menu"> 
                         <div class="flex flex-col mr-auto lg:flex-row"> 
                             <a href="../../" class="hover:text-gray-400 lg:p-4 py-2 text-white">Home</a>
-                            <a href="#" class="text-gray-400 lg:p-4 py-2 text-white">Categories</a>
+                            <a href="categories.php" class="hover:text-gray-400 lg:p-4 py-2 text-white">Categories</a>
                             <a href="vehicles.php" class="hover:text-gray-400 lg:p-4 py-2 text-white">Vehicles</a>
                         </div>
                         <div class="flex-wrap inline-flex items-center py-1 space-x-2"> 
-                            <a href="reservations.php" class="border border-primary-500 hover:bg-primary-500 hover:text-white inline-block px-6 py-2 text-primary-500 rounded-lg">Reservations</a>
+                            <a href="#" class="border border-primary-500 hover:bg-primary-500 hover:text-white inline-block px-6 py-2 text-primary-500 rounded-lg">Reservations</a>
                             <a href="#" class="bg-primary-500 border border-primary-500 hover:bg-primary-600 inline-block px-6 py-2 text-white rounded-lg">Log out</a> 
                         </div>                         
                     </div>                     
                 </nav>                 
             </div>
         </header>
-        <section class="py-24"> 
-                <div class="container mx-auto px-4"> 
-                    <div class="-mx-4 flex flex-wrap items-center mb-6"> 
-                        <div class="px-4 w-full md:flex-1"> 
-                            <h3 class="capitalize font-bold mb-4 text-4xl text-gray-900">Choose Your Category</h3>
-                            <div class="bg-primary-500 mb-6 pb-1 w-2/12"></div>                             
-                        </div>                         
-                    </div>
-                    <div class="-mx-3 flex flex-wrap justify-center"> 
-                        <div class="p-3 w-full md:w-6/12 lg:w-3/12"> 
-                            <a href="#" class="bg-white block border group hover:text-gray-500 shadow-md text-gray-900"><img src="https://images.unsplash.com/photo-1619767886558-efdc259cde1a?ixid=MnwyMDkyMnwwfDF8c2VhcmNofDMyM3x8c3V2fGVufDB8fHx8MTYzMTY4Njc4Nw&ixlib=rb-1.2.1q=85&fm=jpg&crop=faces&cs=srgb&w=600&h=450&fit=crop" class="group-hover:opacity-90 w-full" alt="..." width="600" height="450"/><div class="px-6 py-4">
-                                    <h4 class="font-bold text-xl">Sedans</h4>
-                                </div></a> 
-                        </div>
-                        <div class="p-3 w-full md:w-6/12 lg:w-3/12"> 
-                            <a href="#" class="bg-white block border group hover:text-gray-500 shadow-md text-gray-900"><img src="https://images.unsplash.com/photo-1511527844068-006b95d162c2?ixid=MnwyMDkyMnwwfDF8c2VhcmNofDQzfHxjYXIlMjBzdXZ8ZW58MHx8fHwxNjMxNjg0ODkw&ixlib=rb-1.2.1q=85&fm=jpg&crop=faces&cs=srgb&w=600&h=450&fit=crop" class="group-hover:opacity-90 w-full" alt="..." width="600" height="450"/><div class="px-6 py-4">
-                                    <h4 class="font-bold text-xl">SUVs</h4>
-                                </div></a> 
-                        </div>
-                        <div class="p-3 w-full md:w-6/12 lg:w-3/12"> 
-                            <a href="#" class="bg-white block border group hover:text-gray-500 shadow-md text-gray-900"><img src="https://images.unsplash.com/photo-1597210159614-966c9f632c89?ixid=MnwyMDkyMnwwfDF8c2VhcmNofDh8fGNhciUyMGNvbnZlcnRpYmxlfGVufDB8fHx8MTYzMTY4NTExMA&ixlib=rb-1.2.1q=85&fm=jpg&crop=faces&cs=srgb&w=600&h=450&fit=crop" class="group-hover:opacity-90 w-full" alt="..." width="600" height="450"/><div class="px-6 py-4">
-                                    <h4 class="font-bold text-xl">Convertibles</h4>
-                                </div></a> 
-                        </div>
-                        <div class="p-3 w-full md:w-6/12 lg:w-3/12"> 
-                            <a href="#" class="bg-white block border group hover:text-gray-500 shadow-md text-gray-900"><img src="https://images.unsplash.com/photo-1552519507-da3b142c6e3d?ixid=MnwyMDkyMnwwfDF8c2VhcmNofDMwfHxzcG9ydHMlMjBjYXJ8ZW58MHx8fHwxNjMxNjg3MzQ4&ixlib=rb-1.2.1q=85&fm=jpg&crop=faces&cs=srgb&w=600&h=450&fit=crop" class="group-hover:opacity-90 w-full" alt="..." width="600" height="450"/><div class="px-6 py-4">
-                                    <h4 class="font-bold text-xl">Sports Cars</h4>
-                                </div></a> 
-                        </div>
-                        <div class="p-3 w-full md:w-6/12 lg:w-3/12"> 
-                            <a href="#" class="bg-white block border group hover:text-gray-500 shadow-md text-gray-900"><img src="https://images.unsplash.com/photo-1619767886558-efdc259cde1a?ixid=MnwyMDkyMnwwfDF8c2VhcmNofDMyM3x8c3V2fGVufDB8fHx8MTYzMTY4Njc4Nw&ixlib=rb-1.2.1q=85&fm=jpg&crop=faces&cs=srgb&w=600&h=450&fit=crop" class="group-hover:opacity-90 w-full" alt="..." width="600" height="450"/><div class="px-6 py-4">
-                                    <h4 class="font-bold text-xl">Sedans</h4>
-                                </div></a> 
-                        </div>                         
-                    </div>
-                </div>                 
-            </section>
+        <section class="py-24">
+            <div class="container mx-auto px-4"> 
+                <div class="-mx-4 flex flex-wrap items-center mb-6"> 
+                    <div class="px-4 w-full md:flex-1"> 
+                        <h3 class="capitalize font-bold mb-4 text-4xl text-gray-900">Your Reservations</h3>
+                        <div class="bg-primary-500 mb-6 pb-1 w-2/12"></div>                             
+                    </div>                         
+                </div>
+                <div class="relative overflow-x-auto shadow-md sm:rounded-lg lg:w-2/3 mx-auto">
+                    <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+                        <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                            <tr>
+                                <th scope="col" class="px-6 py-3">
+                                    Vehicle Model
+                                </th>
+                                <th scope="col" class="px-6 py-3">
+                                    brand
+                                </th>
+                                <th scope="col" class="px-6 py-3">
+                                    location
+                                </th>
+                                <th scope="col" class="px-6 py-3">
+                                    Price
+                                </th>
+                                <th scope="col" class="px-6 py-3">
+                                    Date
+                                </th>
+                                <th scope="col" class="px-6 py-3">
+                                    Status
+                                </th>
+                                <th scope="col" class="px-6 py-3">
+                                    Actions
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700">
+                                <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                    Apple MacBook Pro 17"
+                                </th>
+                                <td class="px-6 py-4">
+                                    Silver
+                                </td>
+                                <td class="px-6 py-4">
+                                    Laptop
+                                </td>
+                                <td class="px-6 py-4">
+                                    $2999
+                                </td>
+                                <td class="px-6 py-4">
+                                    22/11/2002
+                                </td>
+                                <td class="px-6 py-4">
+                                    Pending
+                                </td>
+                                <td class="px-6 py-4 flex justify-around items-center">
+                                    <a href="#" class=""><i class="fa-solid fa-ban text-red-500 hover:scale-125 transition duration-300"></i></a>
+                                    <a href="#" class="font-medium text-blue-600 dark:text-blue-500 hover:underline hover:scale-125 transition duration-300">Edit</a>
+                                </td>
+                            </tr>
+                            
+                        </tbody>
+                    </table>
+                </div>
 
+
+            </div>
+        </section>
+        <script src="https://cdn.jsdelivr.net/npm/flowbite@2.5.2/dist/flowbite.min.js"></script>
     </body>
 </html>

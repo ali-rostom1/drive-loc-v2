@@ -66,7 +66,7 @@
 
             $result = $this->con->prepare($sql);
             
-            foreach($values as $ley=>$value){
+            foreach($values as $key=>$value){
                 $type = is_int($value) ? PDO::PARAM_INT : PDO::PARAM_STR;
                 $result->bindValue(":".$key,$value,$type);
             }
