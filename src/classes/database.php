@@ -32,6 +32,27 @@
             $result->execute();
             return $result->fetchAll(PDO::FETCH_ASSOC);
         }
+        protected function insert($table,$values){
+            $columns = "";
+            $placeholders = "";
+
+            foreach($values as $key => $value){
+                $columns .= $key . ", ";
+                $placeholders .= ":" . $key . ", ";
+            }
+            $columns = rtrim($columns,", ");
+            $placeholders = rtrim($placeholders,", ");
+
+            $sql = "INSERT INTO $table($columns) VALUES($placeholders)";
+            $result = $this->con->prepare($sql);
+
+            foreach($values as $key=>$value){
+                $type = is_int($value) ? PDO::PARAM_INT : PDO::PARAM_STR;
+                $result->bindValue(":".$key,$value,$type);
+            }
+            $result->execute();
+        }
+        
     }
 
 ?>
