@@ -42,7 +42,7 @@ function inputValidation(input,regex){
     return regex.test(input.value);
 }
 function passwordConfirmInputValidation(){
-    return document.querySelector("#confirmPassword").value === password.value ? true : false;
+    return document.querySelector("#confirmPassword").value === passwordInput.value ? true : false;
 }
 
 dynamicInputValidation(nameInput,nameRegex);

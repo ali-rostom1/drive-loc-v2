@@ -21,6 +21,7 @@
             $this->price = $data["price"];
             $this->available = $data["available"];
             $this->imgUrl = $data["img_path"];
+            return $data;
         }
         public function addVehicleToDb(){
             $values = ["model_vehicle"=>$this->model,"id_cat"=>$this->idCategory,"desc_vehicle"=>$this->description,"brand_vehicle"=>$this->brand,"price"=>$this->price,"available"=>$this->available,"img_path"=>$this->imgUrl];
@@ -64,6 +65,12 @@
                             </div>                             
                         </div> 
             ';
+        }
+        public function getAllVehicles(){
+            return $this->selectAll("Vehicle");
+        }
+        public function getNbOfVehicles(){
+            return $this->selectCountWhere("vehicle","1","1");
         }
     }
 ?>

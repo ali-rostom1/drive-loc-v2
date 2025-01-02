@@ -18,7 +18,7 @@
                 die("connection failed : ".$e->getMessage());
             }
         }
-        protected function selectAll($table){
+        public function selectAll($table){
             $sql = "SELECT * FROM $table";
             $result = $this->con->query($sql);
             $result = $result->fetchAll(PDO::FETCH_ASSOC);
@@ -30,7 +30,17 @@
             $type = is_int($conditionValue) ? PDO::PARAM_INT : PDO::PARAM_STR;
             $result->bindParam(":conditionValue",$conditionValue,$type);
             $result->execute();
-            return $result->fetchAll(PDO::FETCH_ASSOC);
+            $data = $result->fetch(PDO::FETCH_ASSOC);
+            return $data;
+        }
+        protected function selectAllWhere($table,$conditionColumn,$conditionValue){
+            $sql = "SELECT * FROM $table WHERE $conditionColumn = :conditionValue";
+            $result = $this->con->prepare($sql);
+            $type = is_int($conditionValue) ? PDO::PARAM_INT : PDO::PARAM_STR;
+            $result->bindParam(":conditionValue",$conditionValue,$type);
+            $result->execute();
+            $data = $result->fetchAll(PDO::FETCH_ASSOC);
+            return $data;
         }
         protected function insert($table,$values){
             $columns = "";
@@ -50,7 +60,7 @@
                 $type = is_int($value) ? PDO::PARAM_INT : PDO::PARAM_STR;
                 $result->bindValue(":".$key,$value,$type);
             }
-            $result->execute();
+            return $result->execute();
         }
         protected function update($table,$values,$conditionColumn,$conditionValue){
 
@@ -72,7 +82,7 @@
             }
             $type = is_int($conditionValue) ? PDO::PARAM_INT : PDO::PARAM_STR;
             $result->bindValue(":conditionValue",$conditionValue,$type);
-            $result->execute();
+            return $result->execute();
 
         }
         protected function deleteAll($table){
@@ -86,7 +96,22 @@
             $stmt->bindValue(":conditionValue",$conditionValue,$type);
             $stmt->execute();
         }
-
+        public function selectCountWhere($table,$conditionColumn,$conditionValue){
+            $sql = "Select Count(*) as total FROM $table where $conditionColumn = :conditionValue";
+            $type = is_int($conditionValue) ? PDO::PARAM_INT : PDO::PARAM_STR;
+            $stmt = $this->con->prepare($sql);
+            $stmt->bindValue(":conditionValue",$conditionValue,$type);
+            $stmt->execute();
+            return $stmt->fetch(PDO::FETCH_ASSOC)["total"];
+        }
+        public function selectLimit($table,$page){
+            $offset = ($page-1) * 6;
+            $sql = "SELECT * FROM $table LIMIT :offset,6";
+            $stmt = $this->con->prepare($sql);
+            $stmt->bindParam(":offset",$offset,PDO::PARAM_INT);
+            $stmt->execute();
+            return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        }
     }
 
 ?>
