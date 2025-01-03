@@ -79,3 +79,57 @@ function displayCategoryVehicles(data){
 }
 
 categoriesAJAX(checkSessionStorage);
+
+
+document.addEventListener('DOMContentLoaded', () => {
+    const modal = document.getElementById('productModal');
+    const closeModal = document.getElementById('closeModal');
+    const productContent = document.getElementById('productContent');
+
+    for(card of cardsContainer.children){
+        card.addEventListener('click', async function(){
+            const productId = this.id;
+            console.log(productId);
+            const response = await fetch(`AJAX/getVehicle.php?id_vehicle=${productId}`);
+            const data = await response.json();
+            console.log(data);
+            productImage.src = data[0].imgUrl;
+            productName.innerHTML=data[0].model;
+            productDescription.innerHTML=data[0].description;
+            productPrice.innerHTML="$" + data[0].price;
+            colorRatingStars(data[1].value);
+            stars= productRating.children;
+            for(let i=0;i<stars.length;i++){
+                stars[i].addEventListener("click",async function(){
+                   await fetch(`AJAX/sendRating.php?value=${i+1}&id_vehicle=${productId}`);
+                   for(j=0;j<stars.length;j++){
+                        if(j<=i){
+                            stars[j].classList.add("text-yellow-300");
+                        }else{
+                            stars[j].classList.remove("text-yellow-300");
+                        }
+                   }
+                });
+            }
+            modal.classList.remove('hidden');
+        });
+    };
+
+    // Close modal
+    closeModal.addEventListener('click', () => {
+        modal.classList.add('hidden');
+        array = productRating.children;
+        for (let i = 0; i < array.length; i++) {
+            array[i].classList.remove("text-yellow-300");
+        }
+    });
+});
+
+
+function colorRatingStars(value){
+    if(value==0) return;
+    array = productRating.children;
+    for (let i = 0; i < value; i++) {
+        array[i].classList.add("text-yellow-300");
+    }
+}

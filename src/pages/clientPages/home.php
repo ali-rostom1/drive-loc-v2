@@ -333,6 +333,7 @@
                 </div>
             </section>
         </main>
+        
         <footer class="bg-black bg-opacity-90 pt-12 text-gray-300"> 
             <div class="container mx-auto px-4 relative"> 
                 <div class="flex flex-wrap -mx-4"> 

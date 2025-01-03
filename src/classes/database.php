@@ -120,6 +120,28 @@
             $stmt->execute();
             return $stmt->fetch(PDO::FETCH_ASSOC);
         }
+        public function updateRating($id_user,$id_vehicle,$value){
+            $sql = "update vehicle v,user u,rating r,rating_user_relation ru set r.value_rating=:value where v.id_vehicle=r.id_vehicle and u.id_user=ru.user_id and ru.rating_id = r.id_rating and u.id_user=:id_user and v.id_vehicle=:id_vehicle;";
+            $stmt = $this->con->prepare($sql);
+            $stmt->bindParam(":id_user",$id_user,PDO::PARAM_INT);
+            $stmt->bindParam(":id_vehicle",$id_vehicle,PDO::PARAM_INT);
+            $stmt->bindParam(":value",$value,PDO::PARAM_INT);
+            $stmt->execute();
+        }
+        public function insertRating($id_user,$id_vehicle,$value){
+            $sql = "insert into rating(value_rating,id_vehicle) values (:value,:id_vehicle)";
+            $stmt = $this->con->prepare($sql);
+            $stmt->bindParam(":value",$value,PDO::PARAM_INT);
+            $stmt->bindParam(":id_vehicle",$id_vehicle,PDO::PARAM_INT);
+            if($stmt->execute()){
+                $rating_id = $this->con->lastInsertId();
+                $sql2 = "insert into rating_user_relation(rating_id,user_id) VALUES(:rating_id,:user_id);";
+                $stmt2 = $this->con->prepare($sql2);
+                $stmt2->bindParam(":rating_id",$rating_id,PDO::PARAM_INT);
+                $stmt2->bindParam(":user_id",$id_user,PDO::PARAM_INT);
+                $stmt2->execute();
+            }
+        }
     }
 
 ?>

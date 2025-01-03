@@ -20,6 +20,9 @@
                 $this->role = $data["id_role"] == 2 ? "admin" : "client";
             }
         }
+        public function getId(){
+            return $this->id;
+        }
         public function setters($id,$username,$password,$email){
             $this->id = $id;
             $this->username = $username;
