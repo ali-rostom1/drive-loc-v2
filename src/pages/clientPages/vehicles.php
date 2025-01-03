@@ -3,6 +3,11 @@
 
     use App\classes\database;
     use App\classes\Vehicle;
+    use App\classes\User;
+
+    $user = new User();
+    $user->isLoggedAsClient();
+
     
     if(isset($_GET["page"])){
         $page = $_GET["page"];

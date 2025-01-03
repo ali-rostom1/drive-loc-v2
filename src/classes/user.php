@@ -39,31 +39,50 @@
                     $this->id = $data["id_user"];  
                     setcookie("user_id",$data["id_user"],time() + (86400 * 30),'/');
                     setcookie("isAdmin",$data["id_role"] == 2 ? 1 : 0,time() + (86400 * 30),'/');
-                    header("location: ../../");
+                    header("location: /Drive-loc/src/");
                     return "success";
                     
                 }else{
                     return "incorrect credentials";
                 }
         }
-        public function isLogged(){
-            if($_COOKIE["user_id"]==$this->id){
+        public function isLoggedAsClient(){
+            if(isset($_COOKIE["user_id"]) && $_COOKIE["user_id"]==$this->id && $_COOKIE["isAdmin"]==0){
                 return true;
+            }else if(isset($_COOKIE["user_id"]) && $_COOKIE["user_id"]==$this->id && $_COOKIE["isAdmin"]==1){
+                header("location: /Drive-loc/src/pages/adminPages/adminDashboard.php");
+                return false;
             }else{
+                header("location: /Drive-loc/src/pages/authentification/login.php");
                 return false;
             }
         }
-        public function isAdmin(){
-            if($this->isLogged() && $_COOKIE["isAdmin"] == true){
+        public function isLoggedAsAdmin(){
+            if(isset($_COOKIE["user_id"]) && $_COOKIE["user_id"]==$this->id && $_COOKIE["isAdmin"]==1){
                 return true;
+            }else if(isset($_COOKIE["user_id"]) && $_COOKIE["user_id"]==$this->id && $_COOKIE["isAdmin"]==0){
+                header("location: /Drive-loc/src/");
+                return false;
             }else{
+                header("location: /Drive-loc/src/pages/authentification/login.php");
                 return false;
             }
-            
         }
         public function logout(){
-            
+            setcookie('isAdmin', '', time() - 3600,'/');
+            setcookie('user_id', '', time() - 3600,'/');
+            header('location: /Drive-loc/src/pages/authentification/login.php');
         }
-
+        public function isLogged(){
+            if(isset($_COOKIE["user_id"]) && $_COOKIE["user_id"]==$this->id && $_COOKIE["isAdmin"]==0){
+                header("location: /Drive-loc/src/");
+                return true;
+            }else if(isset($_COOKIE["user_id"]) && $_COOKIE["user_id"]==$this->id && $_COOKIE["isAdmin"]==1){
+                header("location: /Drive-loc/src/pages/adminPages/adminDashboard.php");
+                return true;
+            }else{
+                return false;
+            }
+        }
     }
 ?>

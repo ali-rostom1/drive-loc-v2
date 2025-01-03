@@ -1,3 +1,11 @@
+<?php
+    require_once __DIR__.'../../../../vendor/autoload.php';
+    use App\classes\User;
+
+    $user = new User();
+    $user->isLogged();
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>

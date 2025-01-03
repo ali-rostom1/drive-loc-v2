@@ -6,7 +6,7 @@
     <title>Register</title>
     <!-- Tailwind -->
     <link rel="stylesheet" href="../../assets/css/output.css">
-    <link rel="stylesheet" href="../../assets/css/input.css">
+    
     <style>
         @import url('https://fonts.googleapis.com/css?family=Karla:400,700&display=swap');
 
