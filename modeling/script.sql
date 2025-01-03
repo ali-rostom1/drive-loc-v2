@@ -99,3 +99,11 @@ insert into vehicle(model_vehicle, desc_vehicle, brand_vehicle, price, available
 ("Mazda MX-5 Miata 2022", "Lorem ipsum dolor, sit amet consectetur adipisicng elit.", "Mazda", "65.00", 1, "https://images.unsplash.com/photo-1580922404516-dcf09fd24e2e?ixid=MnwyMDkyMnwwfDF8c2VhcmNofDE5fHxjb252ZXJ0aWJsZXxlbnwwfHx8fDE2MzE2ODYwNDU&ixlib=rb-1.2.1q=85&fm=jpg&crop=faces&cs=srgb&w=600&h=450&fit=crop", 5);
 
 insert into role(name_role) values("client"),("admin");
+
+insert into rating(value_rating,id_vehicle) values
+(3,8),
+(5,1),
+(3,1),
+(4,8),
+(5,8),
+(5,10);
