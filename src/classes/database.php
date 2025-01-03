@@ -112,6 +112,14 @@
             $stmt->execute();
             return $stmt->fetchAll(PDO::FETCH_ASSOC);
         }
+        public function getRatingValue($id_user,$id_vehicle){
+            $sql = "select r.value_rating as value from vehicle v,user u,rating r,rating_user_relation ru where v.id_vehicle=r.id_vehicle and u.id_user=ru.user_id and ru.rating_id = r.id_rating and u.id_user=:id_user and v.id_vehicle=:id_vehicle;";
+            $stmt = $this->con->prepare($sql);
+            $stmt->bindParam(":id_user",$id_user,PDO::PARAM_INT);
+            $stmt->bindParam(":id_vehicle",$id_vehicle,PDO::PARAM_INT);
+            $stmt->execute();
+            return $stmt->fetch(PDO::FETCH_ASSOC);
+        }
     }
 
 ?>
