@@ -95,9 +95,18 @@ document.addEventListener('DOMContentLoaded', () => {
             console.log(data);
             productImage.src = data[0].imgUrl;
             productName.innerHTML=data[0].model;
+            productLocation.innerHTML=data[0].location;
             productDescription.innerHTML=data[0].description;
             productPrice.innerHTML="$" + data[0].price;
+
+            if(!data[1].isReserved) productRating.classList.add("hidden");
+            else if(data[1].isDeleted) productRating.classList.add("hidden");
+            else productRating.classList.remove("hidden");
+
+
             colorRatingStars(data[1].value);
+
+            
             stars= productRating.children;
             for(let i=0;i<stars.length;i++){
                 stars[i].addEventListener("click",async function(){
@@ -133,3 +142,16 @@ function colorRatingStars(value){
         array[i].classList.add("text-yellow-300");
     }
 }
+
+stars = document.querySelectorAll("#productRating svg");
+for(let i=0;i<stars.length;i++){
+    stars[i].addEventListener("mouseover",function(){
+        for(let j=0;j<stars.length;j++)
+        if(j<=i){
+            stars[j].classList.add("text-yellow-300");
+        }else{
+            stars[j].classList.remove("text-yellow-300");
+        }
+    });
+}
+

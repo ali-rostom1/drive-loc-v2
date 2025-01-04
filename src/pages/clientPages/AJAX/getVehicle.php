@@ -25,7 +25,7 @@
             $vehicle = new Vehicle();
             $vehicle->fetchForVehicle($_GET["id_vehicle"]);
             $user = new User();
-            $rating = new Rating($user->getId(),$vehicle->id);
+            $rating = new Rating($user->getId(),(int)$vehicle->id);
             $data = [$vehicle,$rating];
             echo json_encode($data);
         }

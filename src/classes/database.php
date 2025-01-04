@@ -120,6 +120,14 @@
             $stmt->execute();
             return $stmt->fetch(PDO::FETCH_ASSOC);
         }
+        public function getRatingId($id_user,$id_vehicle){
+            $sql = "select r.id_rating as id from vehicle v,user u,rating r,rating_user_relation ru where v.id_vehicle=r.id_vehicle and u.id_user=ru.user_id and ru.rating_id = r.id_rating and u.id_user=:id_user and v.id_vehicle=:id_vehicle;";
+            $stmt = $this->con->prepare($sql);
+            $stmt->bindParam(":id_user",$id_user,PDO::PARAM_INT);
+            $stmt->bindParam(":id_vehicle",$id_vehicle,PDO::PARAM_INT);
+            $stmt->execute();
+            return $stmt->fetch(PDO::FETCH_ASSOC);
+        }
         public function updateRating($id_user,$id_vehicle,$value){
             $sql = "update vehicle v,user u,rating r,rating_user_relation ru set r.value_rating=:value where v.id_vehicle=r.id_vehicle and u.id_user=ru.user_id and ru.rating_id = r.id_rating and u.id_user=:id_user and v.id_vehicle=:id_vehicle;";
             $stmt = $this->con->prepare($sql);
@@ -142,6 +150,48 @@
                 $stmt2->execute();
             }
         }
+        protected function selectWhereAnd($table, $conditions)
+        {
+            $sql = "SELECT * FROM $table WHERE ";
+            
+            $placeholders = [];
+            foreach ($conditions as $column => $value) {
+                $placeholders[] = "$column =:$column";
+            }
+            $sql .= implode(" AND ", $placeholders);
+        
+            
+            $result = $this->con->prepare($sql);
+        
+
+            foreach ($conditions as $column => $value) {
+                $type = is_int($value) ? PDO::PARAM_INT : PDO::PARAM_STR;
+                $result->bindValue(":$column", $value, $type);
+            }
+        
+            
+            $result->execute();
+        
+            
+            $data = $result->fetch(PDO::FETCH_ASSOC);
+            return $data;
+        }
+        public function getUserRatings($id_user){
+            $sql = "select r.value_rating,v.model_vehicle,v.price,v.brand_vehicle,r.id_rating,v.id_vehicle from vehicle v,user u,rating r,rating_user_relation ru where v.id_vehicle=r.id_vehicle and u.id_user=ru.user_id and r.deleted = FALSE and ru.rating_id = r.id_rating and u.id_user=:id_user;";
+            $stmt = $this->con->prepare($sql);
+            $stmt->bindParam(":id_user",$id_user,PDO::PARAM_INT);
+            $stmt->execute();
+            return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        }
+        public function getIsDeletedRating($id_user,$id_vehicle){
+            $sql = "select r.deleted from vehicle v,user u,rating r,rating_user_relation ru where v.id_vehicle=r.id_vehicle and u.id_user=ru.user_id and ru.rating_id = r.id_rating and u.id_user=:id_user and v.id_vehicle=:id_vehicle;";
+            $stmt = $this->con->prepare($sql);
+            $stmt->bindParam(":id_user",$id_user,PDO::PARAM_INT);
+            $stmt->bindParam(":id_vehicle",$id_vehicle,PDO::PARAM_INT);
+            $stmt->execute();
+            return $stmt->fetch(PDO::FETCH_ASSOC);
+        }
+        
     }
 
 ?>

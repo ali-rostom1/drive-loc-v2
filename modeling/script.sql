@@ -107,3 +107,5 @@ insert into rating(value_rating,id_vehicle) values
 (4,8),
 (5,8),
 (5,10);
+
+Error Code: 1175. You are using safe update mode and you tried to update a table without a WHERE that uses a KEY column.  To disable safe mode, toggle the option in Preferences -> SQL Editor and reconnect.

@@ -10,6 +10,7 @@
         public $price;
         public $available;
         public $imgUrl;
+        public $location;
         
         public function fetchForVehicle($id){
             $data = $this->selectWhere("vehicle","id_vehicle",$id);
@@ -21,6 +22,7 @@
             $this->price = $data["price"];
             $this->available = $data["available"];
             $this->imgUrl = $data["img_path"];
+            $this->location = $data["location"];
             return $data;
         }
         public function addVehicleToDb(){
@@ -44,7 +46,7 @@
             echo '
                 <div id="'.$this->id.'" class="p-3 w-full md:w-6/12 lg:w-4/12"> 
                             <div class="bg-white border shadow-md text-gray-500"> 
-                                <a href="#"><img src="'.$this->imgUrl.'" class="hover:opacity-90 w-full" alt="..." width="600" height="450"/></a>
+                                <a><img src="'.$this->imgUrl.'" class="hover:opacity-90 w-full" alt="..." width="600" height="450"/></a>
                                 <div class="p-6">
                                     <h4 class="font-bold mb-2 text-gray-900 text-xl"><a href="#" class="hover:text-gray-500">'.$this->model.'</a></h4>
                                     <hr class="border-gray-200 my-4">
