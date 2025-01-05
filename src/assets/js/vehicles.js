@@ -102,11 +102,29 @@ document.addEventListener('DOMContentLoaded', () => {
             if(!data[1].isReserved) productRating.classList.add("hidden");
             else if(data[1].isDeleted) productRating.classList.add("hidden");
             else productRating.classList.remove("hidden");
+            
+            reserve.onclick = function(){
+                reserveModal.classList.toggle("hidden");
+                document.getElementById('reserveForm').addEventListener('submit', function(event) {
+                    event.preventDefault();
+            
+                    const formData = new FormData(this);
 
-
+                    fetch('AJAX/reserve.php?id_vehicle='+productId, {
+                        method: 'POST',
+                        body: formData
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.success) {
+                            window.location = "reservations.php";
+                        }
+                    })
+                });
+            }
             colorRatingStars(data[1].value);
 
-            
+
             stars= productRating.children;
             for(let i=0;i<stars.length;i++){
                 stars[i].addEventListener("click",async function(){
@@ -155,3 +173,6 @@ for(let i=0;i<stars.length;i++){
     });
 }
 
+cancel.onclick = function(){
+    reserveModal.classList.toggle("hidden");
+}

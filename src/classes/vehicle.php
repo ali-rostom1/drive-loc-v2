@@ -31,7 +31,16 @@
                 return "Vehicle Added Successfully";
             }else return "Error with Vehicle infos";
         }
-        public function editVehicleDb(){
+        public function editVehicleDb($model,$idCategory,$description,$brand,$price,$available,$imgUrl,$location){
+            $this->model = $model;
+            $this->idCategory = $idCategory;
+            $this->description = $description;
+            $this->brand = $brand;
+            $this->price = $price;
+            $this->available = $available;
+            $this->imgUrl = $imgUrl;
+            $this->location = $location;
+            
             $values = ["model_vehicle"=>$this->model,"id_cat"=>$this->idCategory,"desc_vehicle"=>$this->description,"brand_vehicle"=>$this->brand,"price"=>$this->price,"available"=>$this->available,"img_path"=>$this->imgUrl];
             if($this->update("vehicle",$values,"id_vehicle",$this->id)){
                 return "Vehicle edited Successfully";
@@ -73,6 +82,23 @@
         }
         public function getNbOfVehicles(){
             return $this->selectCountWhere("vehicle","1","1");
+        }
+        public function displayAdmin(){
+            $available = $this->available ? 'Yes' : 'No';
+            echo '
+                <tr class="border-t">
+                    <td class="px-4 py-2">'.$this->id.'</td>
+                    <td class="px-4 py-2">'.$this->model.'</td>
+                    <td class="px-4 py-2">'.$this->brand.'</td>
+                    <td class="px-4 py-2">'.$this->price.'</td>
+                    <td class="px-4 py-2">'.$this->location.'</td>
+                    <td class="px-4 py-2">'.$available.'</td>
+                    <td class="px-4 py-2 space-x-2">
+                        <button class="px-2 py-1 bg-green-500 text-white rounded editBtn" data-id="'.$this->id.'">Edit</button>
+                        <button class="px-2 py-1 bg-red-500 text-white rounded deleteBtn" data-id="'.$this->id.'">Delete</button>
+                    </td>
+                </tr>
+            ';
         }
     }
 ?>

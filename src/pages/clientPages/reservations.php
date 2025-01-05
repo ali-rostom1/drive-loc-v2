@@ -1,6 +1,11 @@
 <?php
     require_once __DIR__."../../../../vendor/autoload.php";
+
+    use App\classes\database;
     use App\classes\User;
+    use App\classes\Reservation;
+
+
     $user = new User();
     $user->isLoggedAsClient();
 ?>
@@ -40,7 +45,7 @@
                         <div class="flex-wrap inline-flex items-center py-1 space-x-2"> 
                             <a href="ratings.php" class="border border-primary-500 hover:bg-primary-500 hover:text-white inline-block px-6 py-2 text-primary-500 rounded-lg">My Ratings</a>
                             <a href="#" class="border border-primary-500 bg-primary-500 text-white inline-block px-6 py-2  rounded-lg">Reservations</a>
-                            <a href="#" class="bg-primary-500 border border-primary-500 hover:bg-primary-600 inline-block px-6 py-2 text-white rounded-lg">Log out</a> 
+                            <a href="../authentification/deauth.php" class="bg-primary-500 border border-primary-500 hover:bg-primary-600 inline-block px-6 py-2 text-white rounded-lg">Log out</a> 
                         </div>                         
                     </div>                     
                 </nav>                 
@@ -82,38 +87,38 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr class="odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700">
-                                <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                    Apple MacBook Pro 17"
-                                </th>
-                                <td class="px-6 py-4">
-                                    Silver
-                                </td>
-                                <td class="px-6 py-4">
-                                    Laptop
-                                </td>
-                                <td class="px-6 py-4">
-                                    $2999
-                                </td>
-                                <td class="px-6 py-4">
-                                    22/11/2002
-                                </td>
-                                <td class="px-6 py-4">
-                                    Pending
-                                </td>
-                                <td class="px-6 py-4 flex justify-around items-center">
-                                    <a href="#" class=""><i class="fa-solid fa-ban text-red-500 hover:scale-125 transition duration-300"></i></a>
-                                    <a href="#" class="font-medium text-blue-600 dark:text-blue-500 hover:underline hover:scale-125 transition duration-300">Edit</a>
-                                </td>
-                            </tr>
+                            <?php
+                                $db = new database();
+                                $ids = $db->getAllreservationsIds();
+                                
+                                foreach($ids as $id){
+                                    $reservation = new Reservation($id["id"]);
+                                    $reservation->displayReservation();
+                                }
+                            ?>
+                            
                             
                         </tbody>
                     </table>
                 </div>
-
-
             </div>
         </section>
+        <div id="reserveModal" class="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center hidden">
+            <div class="bg-white rounded-lg p-8 w-96">
+                <h2 class="text-xl font-bold mb-4 text-center text-black">Select Reservation Date</h2>
+                <form id="reserveForm" method="POST">
+                    <div class="mb-4">
+                        <label for="reservationDate" class="block text-sm font-medium text-gray-700">Choose a Date</label>
+                        <input type="date" id="reservationDate" name="reservationDate" class="mt-2 w-full p-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500" required>
+                    </div>
+                    <div class="flex justify-between">
+                        <button id="cancel" type="button" class="bg-gray-300 text-black py-2 px-4 rounded-lg hover:bg-gray-400 transition duration-300">Cancel</button>
+                        <button type="submit" class="bg-blue-500 font-bold text-white py-2 px-4 rounded-lg hover:bg-yellow-200 hover:text-black transition duration-300">Confirm</button>
+                    </div>
+                </form>
+            </div>
+        </div>
         <script src="https://cdn.jsdelivr.net/npm/flowbite@2.5.2/dist/flowbite.min.js"></script>
+        <script src="../../assets/js/reservations.js"></script>
     </body>
 </html>

@@ -60,7 +60,7 @@
                 $type = is_int($value) ? PDO::PARAM_INT : PDO::PARAM_STR;
                 $result->bindValue(":".$key,$value,$type);
             }
-            return $result->execute();
+            return $result->execute() ? $this->con->lastInsertId() : false;
         }
         protected function update($table,$values,$conditionColumn,$conditionValue){
 
@@ -191,7 +191,18 @@
             $stmt->execute();
             return $stmt->fetch(PDO::FETCH_ASSOC);
         }
-        
+        public function getAllreservationsIds(){
+            $sql = "SELECT id_reservation as id FROM reservations";
+            $result = $this->con->query($sql);
+            return $result->fetchAll(PDO::FETCH_ASSOC);
+        }
+        protected function getVehicleBasedOnRes($id){
+            $sql = "SELECT v.model_vehicle,v.brand_vehicle,v.price,v.location from vehicle v,reservations r where v.id_vehicle=r.id_vehicle and r.id_reservation = :id ;";
+            $stmt = $this->con->prepare($sql);
+            $stmt->bindParam(":id",$id,PDO::PARAM_INT);
+            $stmt->execute();
+            return $stmt->fetch(PDO::FETCH_ASSOC);
+        }
     }
 
 ?>
