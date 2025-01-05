@@ -24,7 +24,7 @@
             $result = $result->fetchAll(PDO::FETCH_ASSOC);
             return $result;
         }
-        protected function selectWhere($table,$conditionColumn,$conditionValue){
+        public function selectWhere($table,$conditionColumn,$conditionValue){
             $sql = "SELECT * FROM $table WHERE $conditionColumn = :conditionValue";
             $result = $this->con->prepare($sql);
             $type = is_int($conditionValue) ? PDO::PARAM_INT : PDO::PARAM_STR;
@@ -62,7 +62,7 @@
             }
             return $result->execute() ? $this->con->lastInsertId() : false;
         }
-        protected function update($table,$values,$conditionColumn,$conditionValue){
+        public function update($table,$values,$conditionColumn,$conditionValue){
 
             $columns = "";
 
@@ -89,7 +89,7 @@
             $sql = "SELECT * FROM $table";
             $this->con->query($sql);
         }
-        protected function deleteWhere($table,$conditionColumn,$conditionValue){
+        public function deleteWhere($table,$conditionColumn,$conditionValue){
             $sql = "DELETE FROM $table WHERE $conditionColumn = :conditionValue ;";
             $type = is_int($conditionValue) ? PDO::PARAM_INT : PDO::PARAM_STR;
             $stmt = $this->con->prepare($sql);

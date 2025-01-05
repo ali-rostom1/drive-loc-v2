@@ -9,18 +9,13 @@ function attachEventListeners() {
 }
 
 async function openEditModal(id) {
-    const response = await fetch(`../clientPages/AJAX/getVehicle.php?id_vehicle=${id}`);
-    const vehicle = await response.json();
-    console.log(vehicle);
-    editId.value = vehicle[0].id;
-    editModel.value = vehicle[0].model;
-    editBrand.value = vehicle[0].brand;
-    editPrice.value = vehicle[0].price;
-    editLocation.value = vehicle[0].location;
-    editAvailable.value = vehicle[0].available ? '1' : '0';
-    editCategory.value = vehicle[0].idCategory.toString();
-    editDescription.value = vehicle[0].description;
-    editImgUrl.value = vehicle[0].imgUrl;
+    const response = await fetch(`../clientPages/AJAX/category.php?get&id_cat=${id}`);
+    const cat = await response.json();
+    
+    editId.value = cat.id;
+    editName.value = cat.name_cat;
+    editDescription.value = cat.desc_cat;
+    editImgUrl.value = cat.img_url;
 
     editModal.classList.remove('hidden');
 
@@ -29,14 +24,14 @@ async function openEditModal(id) {
     
         const formData = new FormData(this);
 
-        fetch('../clientPages/AJAX/vehicle.php?edit&id_vehicle='+id, {
+        fetch('../clientPages/AJAX/category.php?edit&id_cat='+id, {
             method: 'POST',
             body: formData
         })
         .then(response => response.json())
         .then(data => {
             if (data.success) {
-                window.location = "vehiclesAdmin.php";
+                window.location = "categoriesAdmin.php";
             }
         })
     })
@@ -50,7 +45,7 @@ closeModal.addEventListener('click', () => {
 
 async function deleteVehicle(id) {
     if (confirm('Are you sure you want to delete this vehicle?')) {
-        await fetch(`../clientPages/AJAX/vehicle.php?del&id_vehicle=`+id);
+        await fetch(`../clientPages/AJAX/category.php?del&id_cat=`+id);
         location.reload();
     }
 }

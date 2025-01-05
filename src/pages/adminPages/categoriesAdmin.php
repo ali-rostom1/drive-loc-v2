@@ -49,10 +49,10 @@
             </div>
         </header>
         <div class="container mx-auto mt-10 min-h-screen">
-            <h1 class="text-3xl font-bold mb-5">Admin Dashboard</h1>
+            <h1 class="text-3xl font-bold mb-5">All Categories</h1>
 
             <!-- Vehicle Table -->
-            <table class="table-auto w-full bg-white rounded shadow-md">
+            <table class="table-auto w-1/2 mx-auto bg-white rounded shadow-md">
                 <thead>
                     <tr class="bg-gray-200 text-left">
                         <th class="px-4 py-2">#</th>
@@ -63,11 +63,18 @@
                 <tbody id="categoryTable">
                     <?php
                         $db = new database;
-                        $allVehicles = $db->selectAll("vehicle");
-                        foreach($allVehicles as $vehicleInstance){  
-                            $vehicle = new Vehicle();
-                            $vehicle->fetchForVehicle($vehicleInstance["id_vehicle"]);
-                            $vehicle->displayAdmin();
+                        $allCategories = $db->selectAll("category");
+                        foreach($allCategories as $category){  
+                            echo '
+                            <tr class="border-t">
+                                <td class="px-4 py-2">'.$category["id_cat"].'</td>
+                                <td class="px-4 py-2">'.$category["name_cat"].'</td>
+                                <td class="px-4 py-2 space-x-2">
+                                    <button class="px-2 py-1 bg-green-500 text-white rounded editBtn" data-id="'.$category["id_cat"].'">Edit</button>
+                                    <button class="px-2 py-1 bg-red-500 text-white rounded deleteBtn" data-id="'.$category["id_cat"].'">Delete</button>
+                                </td>
+                            </tr>
+                        '; 
                         }
                     ?>
                 </tbody>
@@ -115,6 +122,6 @@
                 </div>                 
             </div>             
         </footer>
-        <script src="../../assets/js/vehicleAdmin.js"></script>
+        <script src="../../assets/js/categoryAdmin.js"></script>
     </body>
 </html>
