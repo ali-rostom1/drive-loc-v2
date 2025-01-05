@@ -27,6 +27,7 @@
         <title>Vehicles</title>
         <link rel="stylesheet" href="../../assets/css/input.css">
         <link rel="stylesheet" href="../../assets/css/output.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
         <script>/* Pinegrow Interactions, do not remove */ (function(){try{if(!document.documentElement.hasAttribute('data-pg-ia-disabled')) { window.pgia_small_mq=typeof pgia_small_mq=='string'?pgia_small_mq:'(max-width:767px)';window.pgia_large_mq=typeof pgia_large_mq=='string'?pgia_large_mq:'(min-width:768px)';var style = document.createElement('style');var pgcss='html:not(.pg-ia-no-preview) [data-pg-ia-hide=""] {opacity:0;visibility:hidden;}html:not(.pg-ia-no-preview) [data-pg-ia-show=""] {opacity:1;visibility:visible;display:block;}';if(document.documentElement.hasAttribute('data-pg-id') && document.documentElement.hasAttribute('data-pg-mobile')) {pgia_small_mq='(min-width:0)';pgia_large_mq='(min-width:99999px)'} pgcss+='@media ' + pgia_small_mq + '{ html:not(.pg-ia-no-preview) [data-pg-ia-hide="mobile"] {opacity:0;visibility:hidden;}html:not(.pg-ia-no-preview) [data-pg-ia-show="mobile"] {opacity:1;visibility:visible;display:block;}}';pgcss+='@media ' + pgia_large_mq + '{html:not(.pg-ia-no-preview) [data-pg-ia-hide="desktop"] {opacity:0;visibility:hidden;}html:not(.pg-ia-no-preview) [data-pg-ia-show="desktop"] {opacity:1;visibility:visible;display:block;}}';style.innerHTML=pgcss;document.querySelector('head').appendChild(style);}}catch(e){console&&console.log(e);}})()</script>
     </head>
     <body class="font-serif text-gray-500"> 
@@ -62,9 +63,22 @@
         <section class="bg-gray-50 py-10"> 
                 <div class="container mx-auto px-4"> 
                     <div class="-mx-4 flex flex-wrap items-center mb-6"> 
-                        <div class="px-4 w-full md:flex-1"> 
-                            <h3 class="capitalize font-bold mb-4 text-4xl text-gray-900">All Vehicles</h3>
-                            <div class="bg-primary-500 mb-6 pb-1 w-2/12"></div>                             
+                        <div class="px-4 w-full md:flex-1 flex items-center justify-between">
+                            <div class="w-1/2">
+                                <h3 class="capitalize font-bold mb-4 text-4xl text-gray-900">All Vehicles</h3>
+                                <div class="bg-primary-500 mb-6 pb-1 w-2/12"></div>
+                            </div> 
+                            <div class="relative w-1/2 md:w-1/3">
+                                <input 
+                                    id="searchBar" 
+                                    type="text" 
+                                    class="w-full py-4 px-4 border bg-primary-500 text-white border-gray-300 rounded-xl placeholder:text-gray-200" 
+                                    placeholder="Search vehicle..." 
+                                />
+                                <div id="searchResults" class="absolute left-0 right-0 bg-white border border-gray-300 mt-2 max-h-60 overflow-y-auto hidden">
+                                
+                                </div>
+                            </div>                         
                         </div>                         
                     </div>
                     <!-- CATEGORIES -->

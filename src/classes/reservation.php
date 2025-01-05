@@ -69,6 +69,39 @@
         public function deleteReservation(){
             $this->deleteWhere("reservations","id_reservation",$this->id);
         }
+        public function displayReservationAdmin(){
+
+            
+            echo '
+                <tr>
+                    <td class="px-4 py-2 border">'.$this->id.'</td>
+                    <td class="px-4 py-2 border">'.$this->date.'</td>
+                    <td class="px-4 py-2 border">'.$this->status.'</td>
+                    <td class="px-4 py-2 border">'.$this->id_user.'</td>
+                    <td class="px-4 py-2 border">'.$this->id_vehicle.'</td>
+                    <td class="px-4 py-2 border space-x-2">';
+            if($this->status == "Pending"){
+                echo '<button class="approveBtn px-2 py-1 bg-green-500 text-white rounded" data-id="'.$this->id.'">Approve</button>
+                        <button class="declineBtn px-2 py-1 bg-yellow-500 text-white rounded" data-id="'.$this->id.'">Decline</button>
+                        <button class="deleteBtn px-2 py-1 bg-red-500 text-white rounded" data-id="'.$this->id.'">Delete</button>';
+            }else if($this->status == "Accepted"){
+                echo '
+                    <button class="declineBtn px-2 py-1 bg-yellow-500 text-white rounded" data-id="'.$this->id.'">Decline</button>
+                    <button class="deleteBtn px-2 py-1 bg-red-500 text-white rounded" data-id="'.$this->id.'">Delete</button>
+                ';
+            }else{
+                echo ' 
+                     <button class="approveBtn px-2 py-1 bg-green-500 text-white rounded" data-id="'.$this->id.'">Approve</button>
+                    <button class="deleteBtn px-2 py-1 bg-red-500 text-white rounded" data-id="'.$this->id.'">Delete</button>
+                ';
+            }
+            
+            echo '</td>
+                
+                </tr>
+
+            ';
+        }
     }
 
 ?>

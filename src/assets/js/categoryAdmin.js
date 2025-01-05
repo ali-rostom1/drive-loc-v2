@@ -58,3 +58,53 @@ async function deleteVehicle(id) {
     
 
 attachEventListeners();
+
+
+openAddModal.addEventListener('click', () => {
+    addModal.classList.remove('hidden');
+});
+
+
+closeAddModal.addEventListener('click', () => {
+    addModal.classList.add('hidden');
+});
+
+addForm.addEventListener('submit', async function(event){
+    event.preventDefault();
+
+    const formData = new FormData(this);
+
+    const response = await fetch('../clientPages/AJAX/category.php?add', {
+        method: 'POST',
+        body: formData,
+    });
+
+    if (response.ok) {
+        addModal.classList.add('hidden');
+        location.reload();
+    } else {
+        alert('Failed to add category.');
+    }
+});
+
+
+dynamicAdd.addEventListener("click",function(){
+    const newCategoryDiv = document.createElement('div');
+
+    newCategoryDiv.innerHTML += `
+                        <div class="mt-10">
+                            <label for="addName" class="block text-sm font-medium">Name</label>
+                            <input type="text" id="addName" name="name[]" class="w-full px-4 py-2 border rounded" required>
+                        </div>
+                        <div>
+                            <label for="addDescription" class="block text-sm font-medium">Description</label>
+                            <textarea id="addDescription" name="description[]" class="w-full px-4 py-2 border rounded" required></textarea>
+                        </div>
+                        <div>
+                            <label for="addImgUrl" class="block text-sm font-medium">Image URL</label>
+                            <input type="url" id="addImgUrl" name="imgUrl[]" class="w-full px-4 py-2 border rounded" required>
+                        </div>
+    
+    `;
+    categoriesInputContainer.appendChild(newCategoryDiv);
+});

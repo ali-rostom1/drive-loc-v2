@@ -28,6 +28,11 @@
             $rating = new Rating($user->getId(),(int)$vehicle->id);
             $data = [$vehicle,$rating];
             echo json_encode($data);
+        }else if(isset($_GET["term"])){
+            $term = $_GET["term"]."%";
+            $vehicles = $db->searchVehicle($term);
+            echo json_encode($vehicles);   
         }
+
 ?>
 

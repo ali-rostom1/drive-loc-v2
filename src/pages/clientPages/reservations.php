@@ -93,7 +93,10 @@
                                 
                                 foreach($ids as $id){
                                     $reservation = new Reservation($id["id"]);
-                                    $reservation->displayReservation();
+                                    
+                                    if($reservation->id_user == $_COOKIE["user_id"]){
+                                        $reservation->displayReservation();
+                                    }
                                 }
                             ?>
                             

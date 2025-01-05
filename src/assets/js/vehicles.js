@@ -81,76 +81,77 @@ function displayCategoryVehicles(data){
 categoriesAJAX(checkSessionStorage);
 
 
-document.addEventListener('DOMContentLoaded', () => {
-    const modal = document.getElementById('productModal');
-    const closeModal = document.getElementById('closeModal');
-    const productContent = document.getElementById('productContent');
 
-    for(card of cardsContainer.children){
-        card.addEventListener('click', async function(){
-            const productId = this.id;
-            console.log(productId);
-            const response = await fetch(`AJAX/getVehicle.php?id_vehicle=${productId}`);
-            const data = await response.json();
-            console.log(data);
-            productImage.src = data[0].imgUrl;
-            productName.innerHTML=data[0].model;
-            productLocation.innerHTML=data[0].location;
-            productDescription.innerHTML=data[0].description;
-            productPrice.innerHTML="$" + data[0].price;
+const modal = document.getElementById('productModal');
+const closeModal = document.getElementById('closeModal');
+const productContent = document.getElementById('productContent');
 
-            if(!data[1].isReserved) productRating.classList.add("hidden");
-            else if(data[1].isDeleted) productRating.classList.add("hidden");
-            else productRating.classList.remove("hidden");
-            
-            reserve.onclick = function(){
-                reserveModal.classList.toggle("hidden");
-                document.getElementById('reserveForm').addEventListener('submit', function(event) {
-                    event.preventDefault();
-            
-                    const formData = new FormData(this);
+for(card of cardsContainer.children){
+        card.addEventListener('click',displayVehicleInfos);
+ };
 
-                    fetch('AJAX/reserve.php?id_vehicle='+productId, {
-                        method: 'POST',
-                        body: formData
-                    })
-                    .then(response => response.json())
-                    .then(data => {
-                        if (data.success) {
-                            window.location = "reservations.php";
-                        }
-                    })
-                });
-            }
-            colorRatingStars(data[1].value);
-
-
-            stars= productRating.children;
-            for(let i=0;i<stars.length;i++){
-                stars[i].addEventListener("click",async function(){
-                   await fetch(`AJAX/sendRating.php?value=${i+1}&id_vehicle=${productId}`);
-                   for(j=0;j<stars.length;j++){
-                        if(j<=i){
-                            stars[j].classList.add("text-yellow-300");
-                        }else{
-                            stars[j].classList.remove("text-yellow-300");
-                        }
-                   }
-                });
-            }
-            modal.classList.remove('hidden');
-        });
-    };
-
-    // Close modal
-    closeModal.addEventListener('click', () => {
-        modal.classList.add('hidden');
-        array = productRating.children;
-        for (let i = 0; i < array.length; i++) {
-            array[i].classList.remove("text-yellow-300");
-        }
-    });
+// Close modal
+closeModal.addEventListener('click', () => {
+    modal.classList.add('hidden');
+    array = productRating.children;
+    for (let i = 0; i < array.length; i++) {
+        array[i].classList.remove("text-yellow-300");
+    }
 });
+
+
+async function displayVehicleInfos(){
+    const productId = this.id;
+    const response = await fetch(`AJAX/getVehicle.php?id_vehicle=${productId}`);
+    const data = await response.json();
+    console.log(data);
+    productImage.src = data[0].imgUrl;
+    productName.innerHTML=data[0].model;
+    productLocation.innerHTML=data[0].location;
+    productDescription.innerHTML=data[0].description;
+    productPrice.innerHTML="$" + data[0].price;
+
+    if(!data[1].isReserved) productRating.classList.add("hidden");
+    else if(data[1].isDeleted) productRating.classList.add("hidden");
+    else productRating.classList.remove("hidden");
+    
+    reserve.onclick = function(){
+        reserveModal.classList.toggle("hidden");
+        document.getElementById('reserveForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+    
+            const formData = new FormData(this);
+
+            fetch('AJAX/reserve.php?id_vehicle='+productId, {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    window.location = "reservations.php";
+                }
+            })
+        });
+    }
+    colorRatingStars(data[1].value);
+
+
+    stars= productRating.children;
+    for(let i=0;i<stars.length;i++){
+        stars[i].addEventListener("click",async function(){
+           await fetch(`AJAX/sendRating.php?value=${i+1}&id_vehicle=${productId}`);
+           for(j=0;j<stars.length;j++){
+                if(j<=i){
+                    stars[j].classList.add("text-yellow-300");
+                }else{
+                    stars[j].classList.remove("text-yellow-300");
+                }
+           }
+        });
+    }
+    modal.classList.remove('hidden');
+}
 
 
 function colorRatingStars(value){
@@ -176,3 +177,37 @@ for(let i=0;i<stars.length;i++){
 cancel.onclick = function(){
     reserveModal.classList.toggle("hidden");
 }
+
+
+
+searchBar.addEventListener("input",function(){
+    const searchTerm = searchBar.value.toLowerCase();
+    searchResults.innerHTML = '';
+    if (searchTerm.length === 0) {
+        searchResults.classList.add('hidden');
+        return;
+    }
+    const xhr = new XMLHttpRequest();
+    xhr.open('GET', 'AJAX/getVehicle.php?term=' + encodeURIComponent(searchTerm), true);
+    xhr.onreadystatechange = function() {
+        if (xhr.readyState === 4 && xhr.status === 200) {
+            const results = JSON.parse(xhr.responseText);
+            if (results.length > 0) {
+                results.forEach(vehicle => {
+                    const resultItem = document.createElement('div');
+                    resultItem.classList.add('px-4', 'py-2', 'cursor-pointer', 'hover:bg-gray-200');
+                    resultItem.textContent = vehicle.model_vehicle;
+                    resultItem.id=vehicle.id_vehicle
+
+                    resultItem.addEventListener('click', displayVehicleInfos);
+
+                    searchResults.appendChild(resultItem);
+                });
+                searchResults.classList.remove('hidden');
+            } else {
+                searchResults.classList.add('hidden');
+            }
+        }
+    };
+    xhr.send();
+})

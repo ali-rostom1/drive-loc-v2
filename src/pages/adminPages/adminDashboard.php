@@ -36,7 +36,6 @@
                             <a href="../adminPages/categoriesAdmin.php" class="hover:text-gray-400 lg:p-4 py-2 text-white">Categories</a>
                             <a href="../adminPages/vehiclesAdmin.php" class="hover:text-gray-400 lg:p-4 py-2 text-white">Vehicles</a>
                             <a href="../adminPages/reservationsAdmin.php" class="hover:text-gray-400 lg:p-4 py-2 text-white">Reservations</a>
-                            <a href="../adminPages/ratingsAdmin.php" class="hover:text-gray-400 lg:p-4 py-2 text-white">Ratings</a>
                         </div>
                         <div class="flex-wrap inline-flex items-center py-1 space-x-2"> 
                             <a href="../authentification/deauth.php" class="bg-primary-500 border border-primary-500 hover:bg-primary-600 inline-block px-6 py-2 text-white rounded-lg">Log out</a> 
@@ -63,12 +62,6 @@
                 <div class="h-full flex flex-col justify-center items-center gap-4">
                 <i class="fa-solid fa-clock-rotate-left text-5xl text-white"></i>
                     <span class="text-white font-bold text-3xl">Reservations</span>
-                </div>
-            </a>
-            <a href="ratingsAdmin.php" class="lg:w-1/6 w-1/3 h-48 bg-primary-500 rounded-md z-10 hover:scale-110 transition duration-300" >
-                <div class="h-full flex flex-col justify-center items-center gap-4">
-                <i class="fa-solid fa-star text-5xl text-white"></i>
-                    <span class="text-white font-bold text-3xl">Ratings</span>
                 </div>
             </a>
         </main>

@@ -56,10 +56,35 @@ async function deleteVehicle(id) {
 }
 
 
-
-
-
-    
-    
-
 attachEventListeners();
+
+
+
+
+
+openAddModal.addEventListener('click', () => {
+    addModal.classList.remove('hidden');
+});
+
+
+closeAddModal.addEventListener('click', () => {
+    addModal.classList.add('hidden');
+});
+
+addForm.addEventListener('submit', async function(event){
+    event.preventDefault();
+
+    const formData = new FormData(this);
+
+    const response = await fetch('../clientPages/AJAX/vehicle.php?add', {
+        method: 'POST',
+        body: formData,
+    });
+
+    if (response.ok) {
+        alert('Vehicle added successfully!');
+        addModal.classList.add('hidden');
+    } else {
+        alert('Failed to add vehicle.');
+    }
+});

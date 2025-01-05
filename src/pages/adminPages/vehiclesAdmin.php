@@ -22,7 +22,7 @@
         <header class="bg-gray-900 bg-opacity-95 py-2">
             <div class="container mx-auto relative"> 
                 <nav class="flex flex-wrap items-center px-4"> 
-                    <a href="#" class="font-bold font-sans hover:text-opacity-75 inline-flex items-center leading-none mr-4 space-x-1 text-primary-500 text-xl uppercase"><svg version="1.0" xmlns="http://www.w3.org/2000/svg" width="2.5em" xml:space="preserve" fill="currentColor" viewBox="0 0 100 100" height="2.5em">
+                    <a href="../adminPages/adminDashboard.php" class="font-bold font-sans hover:text-opacity-75 inline-flex items-center leading-none mr-4 space-x-1 text-primary-500 text-xl uppercase"><svg version="1.0" xmlns="http://www.w3.org/2000/svg" width="2.5em" xml:space="preserve" fill="currentColor" viewBox="0 0 100 100" height="2.5em">
                             <path d="M38.333 80a11.571 11.571 0 0 1-7.646-2.883A11.724 11.724 0 0 1 26.834 70H10V46.667L43.333 40l20-20H90v26.667H43.995l-27.328 5.465v11.2h11.166a11.787 11.787 0 0 1 4.212-4.807 11.563 11.563 0 0 1 12.577 0 11.789 11.789 0 0 1 4.213 4.807h7.833V70h-6.837a11.719 11.719 0 0 1-3.853 7.117A11.571 11.571 0 0 1 38.333 80Zm0-16.667a5 5 0 1 0 5 5 5.006 5.006 0 0 0-5.001-5Zm27.761-36.666L52.762 40h30.571V26.667Z"></path>
                             <path d="M56.667 63.333h-7.833a11.6 11.6 0 0 0-21 0H16.667v-11.2l27.328-5.465h12.672Z" opacity="0.2"></path>
                             <path d="M90 63.333H80v-10h-6.667v10h-10V70h10v10H80V70h10Z"></path>
@@ -35,11 +35,10 @@
                     </button>                     
                     <div class="flex-1 hidden space-y-2 w-full lg:flex lg:items-center lg:justify-around lg:space-x-4 lg:space-y-0 lg:w-auto" data-name="nav-menu"> 
                         <div class="flex flex-col mr-auto lg:flex-row"> 
-                            <a href="#" class="text-gray-400 lg:p-4 py-2">Home</a>
+                            <a href="../adminPages/adminDashboard.php" class="hover:text-gray-400 lg:p-4 py-2 text-white">Home</a>
                             <a href="../adminPages/categoriesAdmin.php" class="hover:text-gray-400 lg:p-4 py-2 text-white">Categories</a>
-                            <a href="../adminPages/vehiclesAdmin.php" class="hover:text-gray-400 lg:p-4 py-2 text-white">Vehicles</a>
+                            <a href="#" class="text-gray-400 lg:p-4 py-2">Vehicles</a>
                             <a href="../adminPages/reservationsAdmin.php" class="hover:text-gray-400 lg:p-4 py-2 text-white">Reservations</a>
-                            <a href="../adminPages/ratingsAdmin.php" class="hover:text-gray-400 lg:p-4 py-2 text-white">Ratings</a>
                         </div>
                         <div class="flex-wrap inline-flex items-center py-1 space-x-2"> 
                             <a href="../authentification/deauth.php" class="bg-primary-500 border border-primary-500 hover:bg-primary-600 inline-block px-6 py-2 text-white rounded-lg">Log out</a> 
@@ -50,6 +49,9 @@
         </header>
         <div class="container mx-auto mt-10 min-h-screen">
             <h1 class="text-3xl font-bold mb-5">All Vehicles</h1>
+            <div class="flex justify-end mb-4">
+                <button id="openAddModal" class="px-4 py-2 bg-green-500 text-white rounded">Add Vehicle</button>
+            </div>
 
             <!-- Vehicle Table -->
             <table class="table-auto w-full bg-white rounded shadow-md">
@@ -116,8 +118,6 @@
                                     echo '<option value="'.$cat["id_cat"].'">'.$cat["name_cat"].'</option>';
                                 }
                             ?>
-                            
-                            <option value="0">No</option>
                         </select>
                     </div>
                     <div>
@@ -131,6 +131,59 @@
                     <div class="flex justify-end space-x-2">
                         <button type="button" id="closeModal" class="px-4 py-2 bg-gray-300 rounded">Cancel</button>
                         <button type="submit" class="px-4 py-2 bg-blue-500 text-white rounded">Save Changes</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div id="addModal" class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 hidden">
+            <div class="bg-gray-400 rounded-lg shadow-lg w-3/4 md:w-1/2">
+                <form id="addForm" class="p-6 space-y-4">
+                    <h2 class="text-xl font-bold">Add New Vehicle</h2>
+                    <div>
+                        <label for="addModel" class="block text-sm font-medium">Model</label>
+                        <input type="text" id="addModel" name="model" class="w-full px-4 py-2 border rounded" required>
+                    </div>
+                    <div>
+                        <label for="addBrand" class="block text-sm font-medium">Brand</label>
+                        <input type="text" id="addBrand" name="brand" class="w-full px-4 py-2 border rounded" required>
+                    </div>
+                    <div>
+                        <label for="addPrice" class="block text-sm font-medium">Price</label>
+                        <input type="number" id="addPrice" name="price" class="w-full px-4 py-2 border rounded" required>
+                    </div>
+                    <div>
+                        <label for="addLocation" class="block text-sm font-medium">Location</label>
+                        <input type="text" id="addLocation" name="location" class="w-full px-4 py-2 border rounded" required>
+                    </div>
+                    <div>
+                        <label for="addAvailable" class="block text-sm font-medium">Available</label>
+                        <select id="addAvailable" name="isAvailable" class="w-full px-4 py-2 border rounded">
+                            <option value="1">Yes</option>
+                            <option value="0">No</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label for="addCategory" class="block text-sm font-medium">Available</label>
+                        <select id="addCategory" name="category" class="w-full px-4 py-2 border rounded">
+                            <?php
+                                $allCat = $db->selectAll("category");
+                                foreach($allCat as $cat){
+                                    echo '<option value="'.$cat["id_cat"].'">'.$cat["name_cat"].'</option>';
+                                }
+                            ?>
+                        </select>
+                    </div>
+                    <div>
+                        <label for="addDescription" class="block text-sm font-medium">Description</label>
+                        <textarea id="addDescription" name="description" class="w-full px-4 py-2 border rounded" required></textarea>
+                    </div>
+                    <div>
+                        <label for="addImgUrl" class="block text-sm font-medium">Image URL</label>
+                        <input type="url" id="addImgUrl" name="imgUrl" class="w-full px-4 py-2 border rounded" required>
+                    </div>
+                    <div class="flex justify-end space-x-2">
+                        <button type="button" id="closeAddModal" class="px-4 py-2 bg-gray-300 rounded">Cancel</button>
+                        <button type="submit" class="px-4 py-2 bg-blue-500 text-white rounded">Add Vehicle</button>
                     </div>
                 </form>
             </div>

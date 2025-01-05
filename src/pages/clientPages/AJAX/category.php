@@ -13,5 +13,10 @@
         echo json_encode(["success"=>true]);
     }else if(isset($_GET["del"]) && isset($_GET["id_cat"])){
         $db->deleteWhere("category","id_cat",$_GET["id_cat"]);
+    }else if(isset($_GET["add"])){
+        foreach($_POST["name"] as $index=>$value){
+            $values = ["name_cat"=>$value,"desc_cat"=>$_POST["description"][$index],"img_url"=>$_POST["imgUrl"][$index]];
+            $db->insert("category",$values);
+        }
     }
 ?>

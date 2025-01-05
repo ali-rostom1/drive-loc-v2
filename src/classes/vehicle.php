@@ -25,7 +25,15 @@
             $this->location = $data["location"];
             return $data;
         }
-        public function addVehicleToDb(){
+        public function addVehicleToDb($model,$idCategory,$description,$brand,$price,$available,$imgUrl,$location){
+            $this->model = $model;
+            $this->idCategory = $idCategory;
+            $this->description = $description;
+            $this->brand = $brand;
+            $this->price = $price;
+            $this->available = $available;
+            $this->imgUrl = $imgUrl;
+            $this->location = $location;
             $values = ["model_vehicle"=>$this->model,"id_cat"=>$this->idCategory,"desc_vehicle"=>$this->description,"brand_vehicle"=>$this->brand,"price"=>$this->price,"available"=>$this->available,"img_path"=>$this->imgUrl];
             if($this->insert("vehicle",$values)){
                 return "Vehicle Added Successfully";
@@ -40,8 +48,8 @@
             $this->available = $available;
             $this->imgUrl = $imgUrl;
             $this->location = $location;
-            
-            $values = ["model_vehicle"=>$this->model,"id_cat"=>$this->idCategory,"desc_vehicle"=>$this->description,"brand_vehicle"=>$this->brand,"price"=>$this->price,"available"=>$this->available,"img_path"=>$this->imgUrl];
+
+            $values = ["model_vehicle"=>$this->model,"id_cat"=>$this->idCategory,"desc_vehicle"=>$this->description,"brand_vehicle"=>$this->brand,"price"=>$this->price,"available"=>$this->available,"img_path"=>$this->imgUrl,"location"=>$this->location];
             if($this->update("vehicle",$values,"id_vehicle",$this->id)){
                 return "Vehicle edited Successfully";
             }else return "Error with Vehicle infos";

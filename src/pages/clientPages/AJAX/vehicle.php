@@ -14,5 +14,9 @@
         $vehicle = new Vehicle();
         $vehicle->fetchForVehicle($_GET["id_vehicle"]);
         $vehicle->removeVehicleDb();
+    }else if(isset($_GET["add"])){
+        $vehicle = new Vehicle();
+        $vehicle->addVehicleToDb($_POST["model"],$_POST["category"],$_POST["description"],$_POST["brand"],$_POST["price"],$_POST["isAvailable"],$_POST["imgUrl"],$_POST["location"]);
+        
     }
 ?>

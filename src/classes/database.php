@@ -33,7 +33,7 @@
             $data = $result->fetch(PDO::FETCH_ASSOC);
             return $data;
         }
-        protected function selectAllWhere($table,$conditionColumn,$conditionValue){
+        public function selectAllWhere($table,$conditionColumn,$conditionValue){
             $sql = "SELECT * FROM $table WHERE $conditionColumn = :conditionValue";
             $result = $this->con->prepare($sql);
             $type = is_int($conditionValue) ? PDO::PARAM_INT : PDO::PARAM_STR;
@@ -42,7 +42,7 @@
             $data = $result->fetchAll(PDO::FETCH_ASSOC);
             return $data;
         }
-        protected function insert($table,$values){
+        public function insert($table,$values){
             $columns = "";
             $placeholders = "";
 
@@ -202,6 +202,14 @@
             $stmt->bindParam(":id",$id,PDO::PARAM_INT);
             $stmt->execute();
             return $stmt->fetch(PDO::FETCH_ASSOC);
+        }
+
+        public function searchVehicle($term){
+            $sql = "SELECT model_vehicle,id_vehicle from vehicle where model_vehicle LIKE :term LIMIT 10";
+            $stmt = $this->con->prepare($sql);
+            $stmt->bindParam(":term",$term,PDO::PARAM_STR);
+            $stmt->execute();
+            return $stmt->fetchAll(PDO::FETCH_ASSOC);
         }
     }
 
