@@ -108,4 +108,30 @@ insert into rating(value_rating,id_vehicle) values
 (5,8),
 (5,10);
 
-Error Code: 1175. You are using safe update mode and you tried to update a table without a WHERE that uses a KEY column.  To disable safe mode, toggle the option in Preferences -> SQL Editor and reconnect.
+
+CREATE VIEW ListeVehicules AS
+SELECT 
+    v.id_vehicle AS VehicleID,
+    v.model_vehicle AS Model,
+    v.desc_vehicle AS Description,
+    v.brand_vehicle AS Brand,
+    v.price AS PricePerDay,
+    v.available AS Availability,
+    v.img_path AS ImagePath,
+    c.name_cat AS Category,
+    c.desc_cat AS CategoryDescription,
+    AVG(r.value_rating) AS AverageRating,
+    COUNT(r.id_rating) AS TotalRatings
+FROM 
+    vehicle v
+LEFT JOIN 
+    category c ON v.id_cat = c.id_cat
+LEFT JOIN 
+    rating r ON v.id_vehicle = r.id_vehicle
+GROUP BY 
+    v.id_vehicle, v.model_vehicle, v.desc_vehicle, v.brand_vehicle, 
+    v.price, v.available, v.img_path, c.name_cat, c.desc_cat;
+
+select * from ListeVehicules;
+
+
