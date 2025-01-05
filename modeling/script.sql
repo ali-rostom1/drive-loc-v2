@@ -134,4 +134,31 @@ GROUP BY
 
 select * from ListeVehicules;
 
+DELIMITER $$
+CREATE PROCEDURE AjouterReservation(
+    IN p_date_reservation DATE,
+    IN p_id_user INT,
+    IN p_id_vehicle INT,
+    OUT p_message VARCHAR(255)
+)
+BEGIN
+    DECLARE v_available TINYINT;
 
+    -- Vérifier si le véhicule est disponible
+    SELECT available INTO v_available
+    FROM vehicle
+    WHERE id_vehicle = p_id_vehicle;
+
+    IF v_available = 1 THEN
+        INSERT INTO reservations (date_reservation, status, id_user, id_vehicle)
+        VALUES (p_date_reservation, 'Pending', p_id_user, p_id_vehicle);
+
+        SET p_message = 'reservation success.';
+    ELSE
+        SET p_message = 'vehicule not available';
+    END IF;
+END$$
+DELIMITER ;
+
+CALL AjouterReservation('2025-01-10', 1, 3, @message);
+SELECT @message;
