@@ -39,6 +39,7 @@ use App\classes\User;
                             <a href="#" class="text-gray-400 lg:p-4 py-2 ">Home</a>
                             <a href="categories.php" class="hover:text-gray-400 lg:p-4 py-2 text-white">Categories</a>
                             <a href="vehicles.php" class="hover:text-gray-400 lg:p-4 py-2 text-white">Vehicles</a>
+                            <a href="forumPages/forum.php" class="hover:text-gray-400 lg:p-4 py-2 text-white">Forum</a>
                         </div>
                         <div class="flex-wrap inline-flex items-center py-1 space-x-2"> 
                             <a href="ratings.php" class="border border-primary-500 hover:bg-primary-500 hover:text-white inline-block px-6 py-2 text-primary-500 rounded-lg">My Ratings</a>
