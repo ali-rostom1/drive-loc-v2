@@ -43,3 +43,21 @@ create table tag_article(
 	foreign key (id_article) references article(id_article),
     foreign key (id_tag) references tag(id_tag)
 );
+create table favorite(
+	id_fav int not null primary key,
+    id_user int,
+    id_article int
+);
+
+alter table theme add column description varchar(255);
+
+
+insert into theme(name,description) values
+("Maintenance and Repair","Articles about car maintenance, repair, and troubleshooting."),
+("Car Reviews and Comparisons","Articles that review and compare different car models, their features, and performance.
+"),
+("Driving Tips and Safety","Articles that provide tips and advice on safe driving practices, road safety, and defensive driving."),
+("Car Culture and Lifestyle","Articles about car-related culture, lifestyle, and community, such as car shows, racing, and car ownership experiences."),
+("Technology and Innovation","Articles about the latest car technologies, innovations, and advancements in the automotive industry.");
+
+
