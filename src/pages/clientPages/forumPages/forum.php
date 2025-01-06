@@ -1,8 +1,13 @@
 <?php
     require_once __DIR__ . "../../../../../vendor/autoload.php";
-    use App\classes\User;
+
+	use App\classes\Theme;
+	use App\classes\User;
+	use App\classes\database;
+
     $user = new User();
     $user->isLoggedAsClient();
+
 ?>
 
 
@@ -22,7 +27,6 @@
 			font-family: karla;
 		}
 	</style>
-	<link rel="stylesheet" href="../../../assets/css/input.css">
 	<link rel="stylesheet" href="../../../assets/css/output.css">
 	<!-- AlpineJS -->
 	<script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js" defer></script>
@@ -73,11 +77,15 @@
 			</a>
 		</div>
 		<div :class="open ? 'block': 'hidden'" class="w-full flex-grow sm:flex sm:items-center sm:w-auto">
-			<div class="w-full container mx-auto flex flex-col sm:flex-row items-center justify-center text-sm font-bold uppercase mt-0 px-6 py-2">
+			<div class="w-full container mx-auto flex flex-col sm:flex-row items-center justify-center text-sm font-bold uppercase mt-0 px-6 py-2 flex-wrap">
 				<?php
-					
+					$db = new database();
+					$allThemes = $db->selectAll("theme");
+					foreach($allThemes as $element){
+						$theme = new Theme($element["id_theme"]);
+						$theme->display();
+					}
 				?>
-				<a href="#" class="hover:bg-gray-400 rounded py-2 px-4 mx-2">Sports</a>
 			</div>
 		</div>
 	</nav>
