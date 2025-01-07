@@ -35,8 +35,7 @@
                     <a href="#" class="text-white font-bold text-xl">DRIVE & LOC</a>
                     <div class="hidden md:flex space-x-4">
                         <a href="#" class="text-white hover:text-blue-200 transition duration-300">Home</a>
-                        <a href="#" class="text-white hover:text-blue-200 transition duration-300">Articles</a>
-                        <a href="#" class="text-white hover:text-blue-200 transition duration-300">Forum</a>
+                        <a href="articles.php" class="text-white hover:text-blue-200 transition duration-300">Articles</a>
                     </div>
                 </div>
                 
@@ -86,7 +85,6 @@
     <main class="flex-grow container mx-auto px-4 py-8">
         <div class="grid md:grid-cols-2 gap-8">
             <?php
-                $db = new database();
                 $articles = $db->selectLimit("article",1,4);
                 foreach($articles as $articleInstance){
                     $article = new Article($articleInstance["id_article"]);

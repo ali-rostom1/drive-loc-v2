@@ -22,6 +22,9 @@
         public function display(){
             echo '<a href="#" data-id="'.$this->id_theme.'" class="px-4 py-2 text-gray-700 hover:text-blue-600 font-semibold transition duration-300">'.$this->name.'</a>';
         }
+        public function displaySelect(){
+            echo '<option value="'.$this->id_theme.'">'.$this->name.'</option>';
+        }
     }
 
 

@@ -75,6 +75,40 @@
             </div>
             ';
         }
+        public function displaySecondPage(){
+            $date = date("d-m-Y",strtotime($this->dateCreated));
+            $username = $this->selectWhere("user","id_user",$this->id_user)["name_user"];
+            $imgData = "data:image/png;base64,".$this->img["image_data"];
+            echo '
+                <article class="bg-white rounded-lg shadow-lg overflow-hidden">
+                <img src="'.$imgData.'" class="w-full h-48 object-cover">
+                <div class="p-6">
+                    <div class="flex flex-wrap gap-2 mb-3">';
+            foreach($this->tags as $tag){
+                $tag = $this->selectWhere("tag","id_tag",$tag);
+                echo '<span class="px-2 py-1 bg-blue-100 text-blue-800 text-xs rounded-full">'.$tag["name"].'</span>';
+
+            }
+
+
+
+            echo '  </div>
+                    <h2 class="text-xl font-bold mb-2">'.$this->title.'</h2>
+                    <p class="text-gray-600 mb-4">'.substr($this->content,0,30).'...</p>
+                    <div class="flex justify-between items-center text-sm text-gray-500">
+                        <span class="flex items-center">
+                            <i class="fas fa-user mr-2"></i>
+                            '.$username.'
+                        </span>
+                        <span class="flex items-center">
+                            <i class="fas fa-calendar mr-2"></i>
+                            '.$date.'
+                        </span>
+                    </div>
+                </div>
+            </article>
+            ';
+        }
     }
 
 ?>
