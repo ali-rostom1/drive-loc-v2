@@ -132,7 +132,7 @@ use App\classes\User;
                                                      
                     <?php
                         $v = new Vehicle();
-                        $vehicles = $v->selectLimit("vehicle",1);
+                        $vehicles = $v->selectLimit("vehicle",1,6);
                         foreach($vehicles as $vehicle){
                             $vehicleInstance = new Vehicle();
                             $vehicleInstance->fetchForVehicle($vehicle["id_vehicle"]);

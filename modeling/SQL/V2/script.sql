@@ -28,7 +28,7 @@ create table comment(
     content text not null,
 	date TIMESTAMP default current_timestamp,
     id_article int ,
-    foreign key (id_article) references article(id_article)
+    foreign key (id_article) references article(id_article) ON DELETE CASCADE
 );
 
 create table tag(
@@ -40,8 +40,8 @@ create table tag(
 create table tag_article(
 	id_article int,
     id_tag int,
-	foreign key (id_article) references article(id_article),
-    foreign key (id_tag) references tag(id_tag)
+	foreign key (id_article) references article(id_article) ON DELETE CASCADE,
+    foreign key (id_tag) references tag(id_tag) ON DELETE CASCADE
 );
 create table favorite(
 	id_fav int not null primary key,
@@ -59,5 +59,39 @@ insert into theme(name,description) values
 ("Driving Tips and Safety","Articles that provide tips and advice on safe driving practices, road safety, and defensive driving."),
 ("Car Culture and Lifestyle","Articles about car-related culture, lifestyle, and community, such as car shows, racing, and car ownership experiences."),
 ("Technology and Innovation","Articles about the latest car technologies, innovations, and advancements in the automotive industry.");
+
+
+alter table tag modify column name varchar(50);
+
+INSERT INTO tag (name)
+VALUES 
+('Car News'),
+('Car Reviews'),
+('Car Shows'),
+('Sedans'),
+('SUVs'),
+('Trucks'),
+('Electric/Hybrid'),
+('Racing Cars'),
+('DIY Maintenance'),
+('Car Troubleshooting'),
+('Mechanic Recommendations'),
+('Parts and Accessories'),
+('Tuning and Performance'),
+('Engine Modifications'),
+('Suspension and Brakes'),
+('Exterior and Interior Upgrades'),
+('Used Car Market'),
+('Car Buying Tips'),
+('Car Selling Advice'),
+('Trade-In and Financing'),
+('Roadside Assistance'),
+('Car Safety Features'),
+('Accident Prevention'),
+('Emergency Procedures'),
+('Personal Stories'),
+('Car Culture and History'),
+('Travel and Adventure');
+
 
 

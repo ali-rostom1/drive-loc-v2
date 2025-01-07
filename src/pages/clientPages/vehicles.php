@@ -16,7 +16,7 @@
     $nb = $v->getNbOfVehicles();
     $perPage = 6;
     $totalPages = ceil($nb/$perPage);
-    $vehicles = $v->selectLimit("vehicle",$page);
+    $vehicles = $v->selectLimit("vehicle",$page,6);
 
 ?>
 <!DOCTYPE html>

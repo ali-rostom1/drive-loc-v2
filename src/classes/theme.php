@@ -5,21 +5,22 @@
     use App\classes\database;
 
     class Theme extends database{
-        protected $id;
+        protected $id_theme;
         protected $name;
         public $nbOfArticles;
 
         public function __construct($id){
+            
             parent::__construct();
             $data = $this->selectWhere("theme","id_theme",$id);
             if($data){
-                $this->id = $id;
+                $this->id_theme = $id;
                 $this->name = $data["name"];
-                $this->nbOfArticles = $this->selectCountWhere("article","id_theme",$this->id);
+                $this->nbOfArticles = $this->selectCountWhere("article","id_theme",$this->id_theme);
             }
         }
         public function display(){
-            echo '<a href="articles.php" data-id="'.$this->id.'" class="hover:bg-gray-400 rounded py-2 px-4 mx-2">'.$this->name.'</a>';
+            echo '<a href="#" data-id="'.$this->id_theme.'" class="px-4 py-2 text-gray-700 hover:text-blue-600 font-semibold transition duration-300">'.$this->name.'</a>';
         }
     }
 

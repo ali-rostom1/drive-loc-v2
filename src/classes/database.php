@@ -33,6 +33,20 @@
             $data = $result->fetch(PDO::FETCH_ASSOC);
             return $data;
         }
+        public function selectWhereMultipleCondition($table,$conditions){
+            $sql = "SELECT * FROM $table WHERE ";
+            foreach($conditions as $key=>$value){
+                $sql .= "$key = :$key AND ";
+            }
+            $sql = rtrim($sql,"AND ");
+            $stmt = $this->con->prepare($sql);
+            foreach($conditions as $key=>$value){
+                $type = is_int($value) ? PDO::PARAM_INT : PDO::PARAM_STR;
+                $stmt->bindValue(":$key",$value,$type);
+            }
+            return $stmt->execute()  ? $stmt->fetchAll(PDO::FETCH_ASSOC) : false;
+
+        }
         public function selectAllWhere($table,$conditionColumn,$conditionValue){
             $sql = "SELECT * FROM $table WHERE $conditionColumn = :conditionValue";
             $result = $this->con->prepare($sql);
@@ -104,9 +118,9 @@
             $stmt->execute();
             return $stmt->fetch(PDO::FETCH_ASSOC)["total"];
         }
-        public function selectLimit($table,$page){
-            $offset = ($page-1) * 6;
-            $sql = "SELECT * FROM $table LIMIT :offset,6";
+        public function selectLimit($table,$page,$perPage){
+            $offset = ($page-1) * $perPage;
+            $sql = "SELECT * FROM $table LIMIT :offset,$perPage";
             $stmt = $this->con->prepare($sql);
             $stmt->bindParam(":offset",$offset,PDO::PARAM_INT);
             $stmt->execute();
