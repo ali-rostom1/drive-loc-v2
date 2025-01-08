@@ -14,7 +14,7 @@ create table article(
 	id_article int not null auto_increment primary key,
     title varchar(20) not null ,
     content text not null,
-    status ENUM("Approved","Disapproved","Pending") default "pending",
+    status ENUM("Approved","Disapproved","Pending") default "Pending",
     id_user int,
     id_img int,
     id_theme int,

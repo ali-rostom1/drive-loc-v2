@@ -106,7 +106,7 @@
             </div>
         </div>
         <div class="flex justify-end mb-8">
-            <button onclick="location.href='add-article.php'" class="flex items-center gap-2 bg-blue-800 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition duration-300">
+            <button onclick="document.getElementById('createPostModal').classList.remove('hidden')" class="flex items-center gap-2 bg-blue-800 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition duration-300">
                 <i class="fas fa-plus"></i>
                 Add New Article
             </button>
@@ -164,9 +164,119 @@
         </div>
     </main>
 
-    <!-- Footer (same as previous) -->
+    <!-- Add this modal at the end of the main content, before the footer -->
+    <div id="createPostModal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4">
+        <div class="bg-white rounded-lg w-full max-w-2xl">
+            <!-- Modal Header -->
+            <div class="p-4 border-b flex justify-between items-center">
+                <h3 class="text-xl font-bold">Create New Article</h3>
+                <button onclick="document.getElementById('createPostModal').classList.add('hidden')" 
+                        class="text-gray-500 hover:text-gray-700">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+
+            <!-- Modal Body -->
+            <div class="p-4">
+                <form>
+                    <!-- Title -->
+                    <div class="mb-4">
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Title</label>
+                        <input type="text" class="w-full p-2 border border-gray-300 rounded-md">
+                    </div>
+
+                    <!-- Theme -->
+                    <div class="mb-4">
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Theme</label>
+                        <select class="w-full p-2 border border-gray-300 rounded-md">
+                            <option value="">Select Theme</option>
+                            <option value="suvs">SUVs</option>
+                            <option value="sedans">Sedans</option>
+                            <option value="sports">Sports Cars</option>
+                            <option value="electric">Electric Vehicles</option>
+                        </select>
+                    </div>
+
+                    <!-- Tags -->
+                    <div class="mb-4">
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Tags</label>
+                        <input type="text" placeholder="Separate tags with commas" class="w-full p-2 border border-gray-300 rounded-md">
+                    </div>
+
+                    <!-- Content -->
+                    <div class="mb-4">
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Content</label>
+                        <textarea rows="6" class="w-full p-2 border border-gray-300 rounded-md"></textarea>
+                    </div>
+
+                    <!-- Image Upload -->
+                    <div class="mb-4">
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Featured Image</label>
+                        <input type="file" accept="image/*" class="w-full p-2 border border-gray-300 rounded-md">
+                    </div>
+                </form>
+            </div>
+
+            <!-- Modal Footer -->
+            <div class="p-4 border-t flex justify-end space-x-3">
+                <button onclick="document.getElementById('createPostModal').classList.add('hidden')" 
+                        class="px-4 py-2 border rounded-lg hover:bg-gray-100">
+                    Cancel
+                </button>
+                <button class="px-4 py-2 bg-blue-800 text-white rounded-lg hover:bg-blue-700">
+                    Publish Post
+                </button>
+            </div>
+        </div>
+    </div>
     <footer class="bg-gray-900 text-gray-300 py-12">
-        <!-- ... (keeping previous footer code) ... -->
+        <div class="container mx-auto px-4">
+            <div class="grid md:grid-cols-4 gap-8">
+                <div>
+                    <h3 class="text-2xl font-bold mb-4">DRIVE & LOC</h3>
+                    <p class="mb-4">117, rue de la Pyramide<br>Casablanca, Morocco</p>
+                    <div class="flex space-x-4">
+                        <a href="#" class="hover:text-white transition duration-300"><i class="fab fa-facebook"></i></a>
+                        <a href="#" class="hover:text-white transition duration-300"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="hover:text-white transition duration-300"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="hover:text-white transition duration-300"><i class="fab fa-linkedin"></i></a>
+                        <a href="#" class="hover:text-white transition duration-300"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+                <div>
+                    <h4 class="font-bold mb-4">Company</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="hover:text-white transition duration-300">About Us</a></li>
+                        <li><a href="#" class="hover:text-white transition duration-300">Contact</a></li>
+                        <li><a href="#" class="hover:text-white transition duration-300">Careers</a></li>
+                        <li><a href="#" class="hover:text-white transition duration-300">FAQ</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-bold mb-4">Vehicles</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="hover:text-white transition duration-300">SUVs</a></li>
+                        <li><a href="#" class="hover:text-white transition duration-300">Sedans</a></li>
+                        <li><a href="#" class="hover:text-white transition duration-300">Sports Cars</a></li>
+                        <li><a href="#" class="hover:text-white transition duration-300">Electric</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-bold mb-4">Contact</h4>
+                    <ul class="space-y-2">
+                        <li>Phone: +212 61413 7566</li>
+                        <li>Email: drive&loc@gmail.com</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="border-t border-gray-800 mt-8 pt-8 flex flex-col md:flex-row justify-between items-center">
+                <p>&copy; 2002 - 2025 Drive & Loc. All Rights Reserved.</p>
+                <div class="flex space-x-4 mt-4 md:mt-0">
+                    <a href="#" class="hover:text-white transition duration-300">Privacy Policy</a>
+                    <a href="#" class="hover:text-white transition duration-300">Terms of Use</a>
+                </div>
+            </div>
+        </div>
     </footer>
 </body>
 </html>
