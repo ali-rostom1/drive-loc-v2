@@ -229,6 +229,54 @@
             </div>
         </div>
     </div>
+    <div id="modal" class="fixed inset-0 bg-black bg-opacity-50 hidden">
+        <div class="bg-white w-11/12 max-w-4xl mx-auto mt-10 rounded-lg shadow-xl max-h-[90vh] overflow-y-auto">
+            <!-- Modal Header -->
+            <div class="p-4 border-b flex justify-between items-center">
+                <h2 class="text-2xl font-bold" id="article-title">Article Title</h2>
+                <button onclick="closeModal()" class="text-gray-500 hover:text-gray-700">
+                <span class="text-2xl">&times;</span>
+                </button>
+            </div>
+
+            <!-- Modal Content -->
+            <div class="p-4 space-y-4">
+                <!-- Image -->
+                <img src="/api/placeholder/800/400" alt="Article" class="w-full h-64 object-cover rounded-lg">
+
+                <!-- Meta -->
+                <div class="flex gap-4 text-sm text-gray-600">
+                <span>Published: Jan 8, 2025</span>
+                <span>5 Comments</span>
+                </div>
+
+                <!-- Tags -->
+                <div class="flex flex-wrap gap-2">
+                <span class="px-3 py-1 bg-gray-100 rounded-full text-sm">#technology</span>
+                <span class="px-3 py-1 bg-gray-100 rounded-full text-sm">#web</span>
+                </div>
+
+                <!-- Content -->
+                <div class="prose max-w-none">
+                <p>Article content goes here...</p>
+                </div>
+
+                <!-- Comments -->
+                <div class="border-t pt-4 mt-8">
+                    <h3 class="text-lg font-bold mb-4">Comments</h3>
+                    <div class="space-y-4">
+                        <div class="border-b pb-4">
+                            <div class="flex justify-between mb-2">
+                                <span class="font-medium">User Name</span>
+                                <span class="text-sm text-gray-500">2 hours ago</span>
+                            </div>
+                            <p class="text-gray-700">Comment content...</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+  </div>
     <footer class="bg-gray-900 text-gray-300 py-12">
         <div class="container mx-auto px-4">
             <div class="grid md:grid-cols-4 gap-8">
@@ -278,5 +326,6 @@
             </div>
         </div>
     </footer>
+    <script src="../../../assets/js/forum/articles.js"></script>
 </body>
 </html>

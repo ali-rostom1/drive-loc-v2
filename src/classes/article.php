@@ -82,7 +82,7 @@
                 $username = $this->selectWhere("user","id_user",$this->id_user)["name_user"];
                 $imgData = "data:image/png;base64,".$this->img["image_data"];
                 echo '
-                    <article class="bg-white rounded-lg shadow-lg overflow-hidden">
+                    <article data-id="'.$this->id_article.'" class="bg-white rounded-lg shadow-lg overflow-hidden">
                     <img src="'.$imgData.'" class="w-full h-48 object-cover">
                     <div class="p-6">
                         <div class="flex flex-wrap gap-2 mb-3">';
