@@ -25,13 +25,12 @@
             if(property_exists($this,$attr)){
                 $this->$attr = $value;
             }
-       }
-       public function __get($attr){
+        }
+        public function __get($attr){
             if(property_exists($this,$attr)){
                 return $this->value;
             }
-       }
-
+        }
         public function display(){
             echo '<a href="#" data-id="'.$this->id_theme.'" class="px-4 py-2 text-gray-700 hover:text-blue-600 font-semibold transition duration-300">'.$this->name.'</a>';
         }
@@ -49,7 +48,7 @@
         public function removeTheme(){
             $this->deleteWhere("theme","id_theme",$this->id_theme);
         }
-        
+
     }
 
 

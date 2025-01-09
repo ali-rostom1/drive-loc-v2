@@ -4,5 +4,8 @@
   },
   "scripts": {
     "app": "tailwindcss -i ./src/assets/css/input.css -o ./src/assets/css/output.css --watch"
+  },
+  "dependencies": {
+    "marked": "^15.0.6"
   }
 }

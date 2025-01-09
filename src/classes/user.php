@@ -20,6 +20,12 @@
                 $this->role = $data["id_role"] == 2 ? "admin" : "client";
             }
         }
+        public function __get($name)
+        {
+            if(property_exists($this,$name)){
+                return $this->$name;
+            }
+        }
         public function getId(){
             return $this->id;
         }

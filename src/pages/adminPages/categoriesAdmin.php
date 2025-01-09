@@ -53,7 +53,6 @@
             <div class="flex justify-end mb-4">
                 <button id="openAddModal" class="px-4 py-2 bg-green-500 text-white rounded">Add Category</button>
             </div>
-            <!-- Vehicle Table -->
             <table class="table-auto w-1/2 mx-auto bg-white rounded shadow-md">
                 <thead>
                     <tr class="bg-gray-200 text-left">

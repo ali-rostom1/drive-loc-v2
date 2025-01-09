@@ -230,53 +230,77 @@
         </div>
     </div>
     <div id="modal" class="fixed inset-0 bg-black bg-opacity-50 hidden">
-        <div class="bg-white w-11/12 max-w-4xl mx-auto mt-10 rounded-lg shadow-xl max-h-[90vh] overflow-y-auto">
-            <!-- Modal Header -->
-            <div class="p-4 border-b flex justify-between items-center">
-                <h2 class="text-2xl font-bold" id="article-title">Article Title</h2>
-                <button onclick="closeModal()" class="text-gray-500 hover:text-gray-700">
+        <div class="bg-white w-11/12 max-w-4xl mx-auto mt-10 rounded-lg shadow-xl flex flex-col max-h-[90vh]">
+            <div class="p-4 border-b flex justify-between items-center sticky top-0 bg-white z-10">
+            <h2 class="text-2xl font-bold" id="articleTitle">Article Title</h2>
+            <button onclick="closeModal()" class="text-gray-500 hover:text-gray-700">
                 <span class="text-2xl">&times;</span>
-                </button>
+            </button>
             </div>
 
-            <!-- Modal Content -->
-            <div class="p-4 space-y-4">
-                <!-- Image -->
-                <img src="/api/placeholder/800/400" alt="Article" class="w-full h-64 object-cover rounded-lg">
+            <div class="overflow-y-auto flex-1 [&::-webkit-scrollbar]:w-2 [&::-webkit-scrollbar-thumb]:bg-gray-300 [&::-webkit-scrollbar-thumb]:rounded-full [&::-webkit-scrollbar-track]:bg-gray-100">
+                <div class="p-4 space-y-6">
+                    <img id="displayImg" src="/api/placeholder/800/400" alt="Article" class="w-full h-64 object-cover rounded-lg shadow-md">
+                    
+                    <div class="flex gap-4 text-sm text-gray-600">
+                    <span id="displayDate" class="flex items-center gap-2">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+                        Jan 8, 2025
+                    </span>
+                    <span id="displayTotalComments" class="flex items-center gap-2">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 8h10M7 12h4m1 8l-4-4H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-3l-4 4z"></path></svg>
+                        5 Comments
+                    </span>
+                    </div>
 
-                <!-- Meta -->
-                <div class="flex gap-4 text-sm text-gray-600">
-                <span>Published: Jan 8, 2025</span>
-                <span>5 Comments</span>
-                </div>
+                    <div id="displayTags" class="flex flex-wrap gap-2">
+                    <span class="px-3 py-1 bg-blue-50 text-blue-600 rounded-full text-sm font-medium">#technology</span>
+                    <span class="px-3 py-1 bg-blue-50 text-blue-600 rounded-full text-sm font-medium">#web</span>
+                    </div>
 
-                <!-- Tags -->
-                <div class="flex flex-wrap gap-2">
-                <span class="px-3 py-1 bg-gray-100 rounded-full text-sm">#technology</span>
-                <span class="px-3 py-1 bg-gray-100 rounded-full text-sm">#web</span>
-                </div>
+                    <div id="displayContent" class="prose max-w-none bg-gray-50 p-8 rounded-xl space-y-6 shadow-inner">
+                    </div>  
 
-                <!-- Content -->
-                <div class="prose max-w-none">
-                <p>Article content goes here...</p>
-                </div>
-
-                <!-- Comments -->
-                <div class="border-t pt-4 mt-8">
-                    <h3 class="text-lg font-bold mb-4">Comments</h3>
-                    <div class="space-y-4">
-                        <div class="border-b pb-4">
-                            <div class="flex justify-between mb-2">
-                                <span class="font-medium">User Name</span>
-                                <span class="text-sm text-gray-500">2 hours ago</span>
-                            </div>
-                            <p class="text-gray-700">Comment content...</p>
+                    <div id="displayComments" class="border-t pt-6 mt-8">
+                        <h3  class="text-xl font-bold mb-6 flex items-center gap-2">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 8h10M7 12h4m1 8l-4-4H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-3l-4 4z"></path></svg>
+                            Comments
+                        </h3>
+                        <div id="seeMoreButton" class="flex justify-center items-center hidden">
+                            <button  class="px-6 py-2 mb-4 mx-auto bg-gray-200 text-blue-600 rounded-lg hover:bg-gray-300 transition-colors font-medium">
+                            See More
+                            </button>
                         </div>
+                        <?php
+
+                            $shortName = strtoupper(implode("",array_map(function($element){ return $element[0];},array_slice(explode(" ",$user->username),0,2))));
+                        ?>
+                    <form id="commentForm" class="space-y-4 bg-gray-50 p-6 rounded-lg">
+                        <div class="flex items-center gap-3 mb-4">
+                        <div class="w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center">
+                            <span id="userShortName" class="text-blue-600 font-medium"><?php echo $shortName ?></span>
+                        </div>
+                        <span class="font-medium">You</span>
+                        </div>
+                        <textarea 
+                        name="comment"
+                        placeholder="Add a comment..." 
+                        class="w-full px-4 py-3 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 min-h-[100px] [&::-webkit-scrollbar]:w-2 [&::-webkit-scrollbar-thumb]:bg-gray-300 [&::-webkit-scrollbar-thumb]:rounded-full [&::-webkit-scrollbar-track]:bg-gray-100"
+                        ></textarea>
+                        <button 
+                        type="submit" 
+                        class="px-6 py-2.5 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors font-medium flex items-center gap-2"
+                        >
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 5l7 7-7 7M5 5l7 7-7 7"></path></svg>
+                        Post Comment
+                        </button>
+                    </form>
                     </div>
                 </div>
             </div>
         </div>
-  </div>
+    </div>
+
     <footer class="bg-gray-900 text-gray-300 py-12">
         <div class="container mx-auto px-4">
             <div class="grid md:grid-cols-4 gap-8">
@@ -326,6 +350,7 @@
             </div>
         </div>
     </footer>
-    <script src="../../../assets/js/forum/articles.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/marked/15.0.6/marked.min.js" integrity="sha512-rvRITpPeEKe4hV9M8XntuXX6nuohzqdR5O3W6nhjTLwkrx0ZgBQuaK4fv5DdOWzs2IaXsGt5h0+nyp9pEuoTXg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script defer src="../../../assets/js/forum/articles.js" ></script>
 </body>
 </html>

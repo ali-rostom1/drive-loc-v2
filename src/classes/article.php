@@ -5,16 +5,16 @@
 
 
     class Article extends Theme{
-        public $id_article;
-        public $title;
-        public $content;
-        public $img;
-        public $tags=[];
-        public $comments=[];
-        public $status;
-        public $id_user;
-        public $isFavorite;
-        public $dateCreated;
+        protected $id_article;
+        private $title;
+        private $content;
+        private $img;
+        private $tags=[];
+        private $commentIds = [];
+        private $status;
+        protected $id_user;
+        private $isFavorite;
+        private $dateCreated;
 
         public function __construct($id){
             parent::__construct(0);
@@ -29,18 +29,28 @@
                 parent::__construct($data["id_theme"]);
                 $this->img = $this->selectWhere("image","id_img",$data["id_img"]);
                 $data = $this->selectAllWhere("articlestagsdetails","id_article",$this->id_article);
-                foreach($data as $tagId){
-                    if($tagId["id_tag"]){
-                        array_push($this->tags,$tagId["id_tag"]);
+                foreach($data as $tag){
+                    if($tag["id_tag"]){
+                        array_push($this->tags,$tag);
                     }
                 }
                 $data = $this->selectAllWhere("articlescommentdetails","id_article",$this->id_article);
-                foreach($data as $commentId){
-                    if($commentId["id_comment"]){
-                        array_push($this->comments,$commentId["id_comment"]);
+                foreach($data as $comment){
+                    if($comment["id_comment"]){
+                        array_push($this->commentIds,$comment["id_comment"]);
                     }
                 }
                 $this->isFavorite = $this->selectWhereMultipleCondition("favorite",["id_user"=>$this->id_user,"id_article"=>$this->id_article]) ? true : false;
+            }
+        }
+        public function __get($attr){
+            if(property_exists($this,$attr)){
+                return $this->$attr;
+            }
+        }
+        public function __set($attr,$value){
+            if(property_exists($this,$attr)){
+                $this->$attr = $value;
             }
         }
         public function display(){
@@ -87,7 +97,6 @@
                     <div class="p-6">
                         <div class="flex flex-wrap gap-2 mb-3">';
                 foreach($this->tags as $tag){
-                    $tag = $this->selectWhere("tag","id_tag",$tag);
                     echo '<span class="px-2 py-1 bg-blue-100 text-blue-800 text-xs rounded-full">'.$tag["name"].'</span>';
 
                 }
