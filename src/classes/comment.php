@@ -16,7 +16,7 @@
             $data = $this->selectWhere("comment","id_comment",$this->id_comment);
             if($data){
                 $this->content = $data["content"];
-                $this->date = explode(" ",$data["date"])[0];
+                $this->date = $data["date"];
                 $this->id_user = $data["id_user"];
                 $this->username = $this->selectWhere("user","id_user",$this->id_user)["name_user"];
                 $this->id_article = $data["id_article"];

@@ -25,7 +25,7 @@ document.querySelectorAll("article").forEach(article => {
         const data = await response.json();
         modal.setAttribute("data-id",id);
         displayArticleModal(data);
-        console.log(commentForm)
+        console.log(data);
         commentForm.onsubmit = function(e){
             e.preventDefault(); 
             
@@ -94,7 +94,7 @@ function displayComment(data){
     div.classList = "space-y-6 mb-8";
     div.setAttribute("data-id",data.commentId);
     shortName = data.username.split(" ").slice(0,2).map(element =>element[0]).join("").toUpperCase();
-    console.log(shortName);
+    date = dateFns.formatDistanceToNow(new Date(data.date),{addSuffix: true})
     div.innerHTML = `
                     <div class="bg-gray-50 p-4 rounded-lg">
                         <div class="flex items-start gap-3">
@@ -104,7 +104,7 @@ function displayComment(data){
                             <div class="flex-1">
                             <div class="flex justify-between items-center mb-2">
                                 <span class="font-medium text-gray-900">${data.username}</span>
-                                <span class="text-sm text-gray-500">2 hours ago</span>
+                                <span class="text-sm text-gray-500">${date}</span>
                             </div>
                             <p class="text-gray-700">${data.comment}</p>
                             </div>
