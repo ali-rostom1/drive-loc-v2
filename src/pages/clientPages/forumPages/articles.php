@@ -9,6 +9,16 @@
     $user = new User();
     $user->isLoggedAsClient();
 
+    if(isset($_GET["page"])){
+        $page = $_GET["page"];
+    }else $page = 1;
+    if(isset($_GET["perPage"])){
+        $perpage = $_GET["perPage"];
+    }else $perpage = 5;
+    $article = new Article(0);
+    $nb = !isset($_GET["id_theme"]) ? $article->getTotalApproved() : $article->getTotalApprovedByTheme($_GET["id_theme"]);
+    $totalPages = ceil($nb/$perpage);
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -60,52 +70,44 @@
                 <!-- Theme Filter -->
                 <div>
                     <label class="block text-sm font-medium text-gray-700 mb-2">Theme</label>
-                    <select class="w-full p-2 border border-gray-300 rounded-md">
+                    <select id="themeSelect" class="w-full p-2 border border-gray-300 rounded-md">
                         <option value="">All Themes</option>
                         <?php
                         $db = new database();
                         $allThemes = $db->selectAll("theme");
+                        $id_theme = isset($_GET["id_theme"]) ? $_GET["id_theme"] : 0 ;
                         foreach($allThemes as $element){
                             $theme = new Theme($element["id_theme"]);
-                            $theme->displaySelect();
+                            $theme->displaySelect($id_theme);
                         }
                         ?>  
 
                     </select>
                 </div>
 
-                <!-- Tags -->
-                <div>
-                    <label class="block text-sm font-medium text-gray-700 mb-2">Tags</label>
-                    <div class="flex flex-wrap gap-2">
-                        <button class="px-3 py-1 bg-blue-100 text-blue-800 rounded-full text-sm hover:bg-blue-200">
-                            Performance
-                        </button>
-                        <button class="px-3 py-1 bg-gray-100 text-gray-800 rounded-full text-sm hover:bg-gray-200">
-                            Luxury
-                        </button>
-                        <button class="px-3 py-1 bg-gray-100 text-gray-800 rounded-full text-sm hover:bg-gray-200">
-                            Economy
-                        </button>
-                        <button class="px-3 py-1 bg-gray-100 text-gray-800 rounded-full text-sm hover:bg-gray-200">
-                            Safety
-                        </button>
-                    </div>
-                </div>
-
-                <!-- Sort By -->
-                <div>
-                    <label class="block text-sm font-medium text-gray-700 mb-2">Sort By</label>
-                    <select class="w-full p-2 border border-gray-300 rounded-md">
-                        <option value="newest">Newest First</option>
-                        <option value="oldest">Oldest First</option>
-                        <option value="popular">Most Popular</option>
-                        <option value="comments">Most Commented</option>
-                    </select>
-                </div>
             </div>
         </div>
-        <div class="flex justify-end mb-8">
+        <div class="flex justify-between items-center mb-8">
+            <div class="flex items-center gap-4">
+                <span class="text-gray-700 font-medium">Show:</span>
+                <div class="flex gap-2">
+                    <?php
+                        for ($i=5; $i <= 15 ; $i+=5) { 
+                            $id_theme = "";
+                            if(isset($_GET["id_theme"])){
+                                $id_theme ='&id_theme='. $_GET["id_theme"].'';
+                            }else{
+                                $id_theme = "";
+                            }
+                            if($i==$perpage){
+                                echo '<a href="?perPage='.$i.''.$id_theme.'" class="w-12 h-12 flex items-center justify-center text-white bg-blue-600 border-2 border-blue-600 rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 font-semibold transition-all duration-200">'.$i.'</a>';
+                            }else{
+                                echo '<a href="?perPage='.$i.''.$id_theme.'" class="w-12 h-12 flex items-center justify-center text-gray-700 border-2 rounded-lg hover:bg-blue-50 hover:border-blue-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 active:bg-blue-100 font-semibold transition-all duration-200">'.$i.'</a>';
+                            }
+                        }
+                    ?>
+                </div>
+            </div>
             <button onclick="document.getElementById('createPostModal').classList.remove('hidden')" class="flex items-center gap-2 bg-blue-800 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition duration-300">
                 <i class="fas fa-plus"></i>
                 Add New Article
@@ -115,126 +117,134 @@
         <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-8">
             <?php
                 $db = new database();
-                $articles = $db->selectAll("article");
+                $articles = !isset($_GET["id_theme"]) ? $db->selectLimit("articleOrdered",$page,$perpage) : $db->selectLimitWhere("articleOrdered",$page,$perpage,"id_theme",$_GET["id_theme"]);
+                
                 foreach($articles as $articleInstance){
                     $article = new Article($articleInstance["id_article"]);
                     $article->displaySecondPage();
                 }
             ?>
 
-            <!-- Article Card 2 -->
-            <article class="bg-white rounded-lg shadow-lg overflow-hidden">
-                <img src="/api/placeholder/800/400" alt="Article Image" class="w-full h-48 object-cover">
-                <div class="p-6">
-                    <div class="flex flex-wrap gap-2 mb-3">
-                        <span class="px-2 py-1 bg-blue-100 text-blue-800 text-xs rounded-full">Electric</span>
-                        <span class="px-2 py-1 bg-gray-100 text-gray-800 text-xs rounded-full">Performance</span>
-                    </div>
-                    <h2 class="text-xl font-bold mb-2">Future of Electric Sports Cars</h2>
-                    <p class="text-gray-600 mb-4">Exploring the latest innovations in electric vehicle performance...</p>
-                    <div class="flex justify-between items-center text-sm text-gray-500">
-                        <span class="flex items-center">
-                            <i class="fas fa-user mr-2"></i>
-                            Jane Smith
-                        </span>
-                        <span class="flex items-center">
-                            <i class="fas fa-calendar mr-2"></i>
-                            Jan 4, 2025
-                        </span>
-                    </div>
-                </div>
-            </article>
-
             <!-- Add more article cards as needed -->
         </div>
 
         <!-- Pagination -->
         <div class="flex justify-center items-center space-x-2">
-            <button class="px-4 py-2 border rounded-lg hover:bg-gray-100 disabled:opacity-50">
-                <i class="fas fa-chevron-left"></i>
-            </button>
-            <button class="px-4 py-2 border rounded-lg bg-blue-800 text-white">1</button>
-            <button class="px-4 py-2 border rounded-lg hover:bg-gray-100">2</button>
-            <button class="px-4 py-2 border rounded-lg hover:bg-gray-100">3</button>
-            <span class="px-4 py-2">...</span>
-            <button class="px-4 py-2 border rounded-lg hover:bg-gray-100">10</button>
-            <button class="px-4 py-2 border rounded-lg hover:bg-gray-100">
-                <i class="fas fa-chevron-right"></i>
-            </button>
+            <?php
+                if(isset($_GET["id_theme"])){
+                    $id_theme = "&id_theme=".$_GET["id_theme"];
+                }else{
+                    $id_theme = "";
+                }
+                for ($i=1; $i <= $totalPages; $i++) { 
+                    if($page == $i){
+                        echo '<a class="px-4 py-2 border rounded-lg bg-blue-800 text-white">'.$i.'</a>';
+                    }else{
+                        echo '<a href="?page='.$i.'&perPage='.$perpage.''.$id_theme.'" class="px-4 py-2 border rounded-lg hover:bg-gray-100">'.$i.'</a>';
+                    }
+                }
+
+            ?>
         </div>
     </main>
     
     <div id="createPostModal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4">
-        <div class="bg-white rounded-lg w-full max-w-2xl">
-            <!-- Modal Header -->
-            <div class="p-4 border-b flex justify-between items-center">
-                <h3 class="text-xl font-bold">Create New Article</h3>
-                <button onclick="document.getElementById('createPostModal').classList.add('hidden')" 
-                        class="text-gray-500 hover:text-gray-700">
-                    <i class="fas fa-times"></i>
-                </button>
-            </div>
-
-            <!-- Modal Body -->
-            <div class="p-4">
-                <form>
-                    <!-- Title -->
-                    <div class="mb-4">
-                        <label class="block text-sm font-medium text-gray-700 mb-2">Title</label>
-                        <input type="text" class="w-full p-2 border border-gray-300 rounded-md">
-                    </div>
-
-                    <!-- Theme -->
-                    <div class="mb-4">
-                        <label class="block text-sm font-medium text-gray-700 mb-2">Theme</label>
-                        <select class="w-full p-2 border border-gray-300 rounded-md">
-                            <option value="">Select Theme</option>
-                            <option value="suvs">SUVs</option>
-                            <option value="sedans">Sedans</option>
-                            <option value="sports">Sports Cars</option>
-                            <option value="electric">Electric Vehicles</option>
-                        </select>
-                    </div>
-
-                    <!-- Tags -->
-                    <div class="mb-4">
-                        <label class="block text-sm font-medium text-gray-700 mb-2">Tags</label>
-                        <input type="text" placeholder="Separate tags with commas" class="w-full p-2 border border-gray-300 rounded-md">
-                    </div>
-
-                    <!-- Content -->
-                    <div class="mb-4">
-                        <label class="block text-sm font-medium text-gray-700 mb-2">Content</label>
-                        <textarea rows="6" class="w-full p-2 border border-gray-300 rounded-md"></textarea>
-                    </div>
-
-                    <!-- Image Upload -->
-                    <div class="mb-4">
-                        <label class="block text-sm font-medium text-gray-700 mb-2">Featured Image</label>
-                        <input type="file" accept="image/*" class="w-full p-2 border border-gray-300 rounded-md">
-                    </div>
-                </form>
-            </div>
-
-            <!-- Modal Footer -->
-            <div class="p-4 border-t flex justify-end space-x-3">
-                <button onclick="document.getElementById('createPostModal').classList.add('hidden')" 
-                        class="px-4 py-2 border rounded-lg hover:bg-gray-100">
-                    Cancel
-                </button>
-                <button class="px-4 py-2 bg-blue-800 text-white rounded-lg hover:bg-blue-700">
-                    Publish Post
-                </button>
-            </div>
+    <div class="bg-white rounded-lg w-full max-w-2xl">
+        <div class="p-4 border-b flex justify-between items-center">
+            <h3 class="text-xl font-bold">Create New Article</h3>
+            <button onclick="document.getElementById('createPostModal').classList.add('hidden')" class="text-gray-500 hover:text-gray-700">
+                <i class="fas fa-times"></i>
+            </button>
         </div>
+
+        <div class="p-4">
+            <form id="addModal">
+                <div class="mb-4">
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Title</label>
+                    <input type="text" class="w-full p-2 border border-gray-300 rounded-md " name="title">
+                </div>
+
+                <div class="mb-4">
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Theme</label>
+                    <select class="w-full p-2 border border-gray-300 rounded-md" name="id_theme">
+                        <option value="">Select Theme</option>
+                        <?php
+                            $allThemes = $db->selectAll("theme");
+                            foreach($allThemes as $themeInst){
+                                $theme = new Theme($themeInst["id_theme"]);
+                                $theme->displaySelectAdd();
+                            }
+                        ?>
+                    </select>
+                </div>
+
+                <div class="mb-4 space-y-3">
+                    <label class="block text-sm font-medium text-gray-700">Tags</label>
+                    <div class="relative">
+                        <input type="text" placeholder="Search tags..." class="w-full p-2 border border-gray-300 rounded-md pr-8" id="searchTag">
+                        <svg class="w-5 h-5 absolute right-2 top-2.5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+                        </svg>
+                        
+                        <div id="searchDropdown" class="absolute z-10 w-full bg-white mt-1 border border-gray-200 rounded-lg shadow-lg hidden">
+                        
+                        </div>
+                    </div>
+                    <input type="hidden" id="tagIds" name="tagIds" value="">
+                    <!-- Selected Tags -->
+                    <div id="selectedTags" class="flex flex-wrap gap-2">
+                        
+                    </div>
+                </div>
+
+                <div class="mb-4">
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Content</label>
+                    <textarea rows="6" name="content" class="w-full p-2 border border-gray-300 rounded-md"></textarea>
+                </div>
+
+                <div class="mb-4">
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Featured Image</label>
+                    <input type="file" accept="image/*" name="image" class="w-full p-2 border border-gray-300 rounded-md">
+                </div>
+                <div class="p-4 border-t flex justify-end space-x-3">
+                    <button onclick="document.getElementById('createPostModal').classList.add('hidden')" class="px-4 py-2 border rounded-lg hover:bg-gray-100">Cancel</button>
+                    <button type="submit" class="px-4 py-2 bg-blue-800 text-white rounded-lg hover:bg-blue-700">Publish Post</button>
+                </div>
+            </form>
+        </div>
+
+        
     </div>
+</div>
     <div id="modal" class="fixed inset-0 bg-black bg-opacity-50 hidden">
         <div class="bg-white w-11/12 max-w-4xl mx-auto mt-10 rounded-lg shadow-xl flex flex-col max-h-[90vh]">
             <div class="p-4 border-b flex justify-between items-center sticky top-0 bg-white z-10">
-            <h2 class="text-2xl font-bold" id="articleTitle">Article Title</h2>
-            <button onclick="closeModal()" class="text-gray-500 hover:text-gray-700">
-                <span class="text-2xl">&times;</span>
-            </button>
+            <div class="flex items-center gap-2">
+                <h2 class="text-2xl font-bold" id="articleTitle">Article Title</h2>
+                <button 
+                    id="favoriteBtn" 
+                    class="flex items-center justify-center w-10 h-10 rounded-full hover:bg-gray-100 transition-colors group"
+                >
+                    <svg 
+                        class="w-6 h-6 text-gray-400 group-hover:text-red-500 transition-colors" 
+                        fill="none" 
+                        stroke="currentColor" 
+                        viewBox="0 0 24 24"
+                    >
+                        <path 
+                            id="favoriteIcon"
+                            stroke-linecap="round" 
+                            stroke-linejoin="round" 
+                            stroke-width="2" 
+                            d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"
+                        >
+                        </path>
+                    </svg>
+                    </button>
+                </div>
+                <button onclick="closeModal()" class="text-gray-500 hover:text-gray-700">
+                    <span class="text-2xl">&times;</span>
+                </button>
             </div>
 
             <div class="overflow-y-auto flex-1 [&::-webkit-scrollbar]:w-2 [&::-webkit-scrollbar-thumb]:bg-gray-300 [&::-webkit-scrollbar-thumb]:rounded-full [&::-webkit-scrollbar-track]:bg-gray-100">

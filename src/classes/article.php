@@ -31,7 +31,8 @@
                 $data = $this->selectAllWhere("articlestagsdetails","id_article",$this->id_article);
                 foreach($data as $tag){
                     if($tag["id_tag"]){
-                        array_push($this->tags,$tag);
+                        $values = ["id_tag"=>$tag["id_tag"],"name"=>$tag["name"]];
+                        array_push($this->tags,$values);
                     }
                 }
                 $data = $this->selectAllWhere("articlescommentdetails","id_article",$this->id_article);
@@ -87,10 +88,10 @@
             }
         }
         public function displaySecondPage(){
-            if($this->status =="Approved"){
+            if($this->status == "Approved"){
                 $date = date("d-m-Y",strtotime($this->dateCreated));
                 $username = $this->selectWhere("user","id_user",$this->id_user)["name_user"];
-                $imgData = "data:image/png;base64,".$this->img["image_data"];
+                $imgData = "data:image/jpg;base64,".base64_encode($this->img["image_data"]);
                 echo '
                     <article data-id="'.$this->id_article.'" class="bg-white rounded-lg shadow-lg overflow-hidden">
                     <img src="'.$imgData.'" class="w-full h-48 object-cover">
@@ -129,7 +130,10 @@
             $id_img = $this->insert("image",["image_data"=>$img,"id_user"=>$id_user]);
             $this->img =$this->selectWhere("image","id_img",$id_img);
             $this->id_user = $id_user;
-            $this->insert("article",["title"=>$this->title,"content"=>$this->content,"id_user"=>$this->id_user,"id_img"=>$this->img["id_img"],"id_theme"=>$this->id_theme]);
+            $this->id_article = $this->insert("article",["title"=>$this->title,"content"=>$this->content,"id_user"=>$this->id_user,"id_img"=>$this->img["id_img"],"id_theme"=>$this->id_theme]);
+            foreach($this->tags as $tagId){
+                $this->insert("tag_article",["id_article"=>$this->id_article,"id_tag"=>$tagId]);
+            }
         }
         public function editArticle($title,$themeId,$tagsIds,$content,$img,$id_user){
             $this->title = $title;
@@ -140,10 +144,16 @@
             $id_img = $data ? $data : $this->insert("image",["image_data"=>$img,"id_user"=>$id_user]);
             $this->img =$this->selectWhere("image","id_img",$id_img);
             $this->id_user = $id_user;
-            $this->id_article = $this->insert("article",["title"=>$this->title,"content"=>$this->content,"id_user"=>$this->id_user,"id_img"=>$this->img["id_img"],"id_theme"=>$this->id_theme]);
+            $this->id_article = $this->update("article",["title"=>$this->title,"content"=>$this->content,"id_user"=>$this->id_user,"id_img"=>$this->img["id_img"],"id_theme"=>$this->id_theme],"id_article",$this->id_article);
         }
         public function removeArticle(){
             $this->deleteWhere("article","id_article",$this->id_article);
+        }
+        public function getTotalApproved(){
+            return $this->selectCountWhere("articleOrdered","1","1");
+        }
+        public function getTotalApprovedByTheme($id_theme){
+            return $this->selectCountWhere("articleOrdered","id_theme",$id_theme);
         }
     }
 

@@ -225,6 +225,22 @@
             $stmt->execute();
             return $stmt->fetchAll(PDO::FETCH_ASSOC);
         }
+        public function searchTag($term){
+            $sql = "SELECT * from tag where name LIKE :term limit 4";
+            $stmt = $this->con->prepare($sql);
+            $stmt->bindParam(":term",$term,PDO::PARAM_STR);
+            $stmt->execute();
+            return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        }
+        public function selectLimitWhere($table,$page,$perPage,$condition,$conditionValue){
+            $offset = ($page-1) * $perPage;
+            $sql = "SELECT * FROM $table WHERE $condition = :conditionValue LIMIT :offset,$perPage";
+            $stmt = $this->con->prepare($sql);
+            $stmt->bindParam(":offset",$offset,PDO::PARAM_INT);
+            $stmt->bindParam(":conditionValue",$conditionValue,PDO::PARAM_INT);
+            $stmt->execute();
+            return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        }
     }
 
 ?>

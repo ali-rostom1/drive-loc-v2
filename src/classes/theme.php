@@ -34,7 +34,12 @@
         public function display(){
             echo '<a href="#" data-id="'.$this->id_theme.'" class="px-4 py-2 text-gray-700 hover:text-blue-600 font-semibold transition duration-300">'.$this->name.'</a>';
         }
-        public function displaySelect(){
+        public function displaySelect($id){
+            $s = '';
+            if($id == $this->id_theme) $s = 'selected';
+            echo '<option '.$s.' class="themeSelect" value="'.$this->id_theme.'">'.$this->name.'</option>';
+        }
+        public function displaySelectAdd(){
             echo '<option value="'.$this->id_theme.'">'.$this->name.'</option>';
         }
         public function addTheme($name,$descritpion){
@@ -47,7 +52,7 @@
         }
         public function removeTheme(){
             $this->deleteWhere("theme","id_theme",$this->id_theme);
-        }
+        } 
 
     }
 
