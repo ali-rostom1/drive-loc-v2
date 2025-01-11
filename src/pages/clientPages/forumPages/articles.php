@@ -35,9 +35,9 @@
         <div class="container mx-auto px-4 py-3">
             <div class="flex justify-between items-center">
                 <div class="flex items-center space-x-8">
-                    <a href="#" class="text-white font-bold text-xl">DRIVE & LOC</a>
+                    <a href="../home.php" class="text-white font-bold text-xl">DRIVE & LOC</a>
                     <div class="hidden md:flex space-x-4">
-                        <a href="#" class="text-white hover:text-blue-200 transition duration-300">Home</a>
+                        <a href="forum.php" class="text-white hover:text-blue-200 transition duration-300">Home</a>
                         <a href="articles.php" class="text-white hover:text-blue-200 transition duration-300">Articles</a>
                     </div>
                 </div>
@@ -61,7 +61,7 @@
     </nav>
 
     <!-- Main Content -->
-    <main class="container mx-auto px-4 py-8">
+    <main class="container mx-auto px-4 py-8 min-h-screen">
         <!-- Search and Filter Section -->
         <div class="bg-white rounded-lg shadow p-6 mb-8">
             

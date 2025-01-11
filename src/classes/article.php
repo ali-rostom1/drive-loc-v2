@@ -58,9 +58,9 @@
             if($this->status =="Approved"){
                 $date = date("d-m-Y",strtotime($this->dateCreated));
                 $username = $this->selectWhere("user","id_user",$this->id_user)["name_user"];
-                $imgData = "data:image/png;base64,".$this->img["image_data"];
+                $imgData = "data:image/png;base64,". base64_encode($this->img["image_data"]);
                 echo '
-                    <div class="bg-white rounded-lg shadow-lg overflow-hidden">
+                    <a href="articles.php" class="bg-white rounded-lg shadow-lg overflow-hidden">
                     <img src="'.$imgData.'" alt="SUV Article" class="w-full h-48 object-cover">
                     <div class="p-6">
                         <div class="flex justify-between items-center mb-4">
@@ -74,16 +74,12 @@
                             <div class="flex items-center space-x-4">
                                 <span class="flex items-center">
                                     <i class="fas fa-comment mr-2"></i>
-                                    23
-                                </span>
-                                <span class="flex items-center">
-                                    <i class="fas fa-star mr-2"></i>
-                                    45
+                                    '. count($this->commentIds) .'
                                 </span>
                             </div>
                         </div>
                     </div>
-                </div>
+                </a>
                 ';
             }
         }
@@ -122,6 +118,35 @@
                 ';
             }
         }
+        public function displayAdmin(){
+            echo '
+                    <tr class="border-t" data-id="'.$this->id_article.'">
+                                <td class="px-4 py-2">'.$this->id_article.'</td>
+                                <td class="px-4 py-2">'.$this->title.'</td>
+                                <td class="px-4 py-2 space-x-2 flex justify-center gap-4">';
+            if($this->status === "Pending"){
+                echo '
+                                    <button class="px-2 py-1 bg-green-500 text-white rounded approve" data-id="'.$this->id_article.'">Approve</button>
+                                    <button class="px-2 py-1 bg-red-500 text-white rounded disapprove" data-id="'.$this->id_article.'">Disapprove</button>
+                                </td>
+                    </tr>
+            ';
+            }else if($this->status === "Approved"){
+                echo '
+                                    
+                                    <button class="px-2 py-1 bg-red-500 text-white rounded disapprove" data-id="'.$this->id_article.'">Disapprove</button>
+                                </td>
+                    </tr>
+            ';
+            }else{
+                echo '
+                                    <button class="px-2 py-1 bg-green-500 text-white rounded approve" data-id="'.$this->id_article.'">Approve</button>
+                                </td>
+                    </tr>
+            ';
+            }
+            
+        }
         public function addArticle($title,$themeId,$tagsIds,$content,$img,$id_user){
             $this->title = $title;
             $this->id_theme = $themeId;
@@ -154,6 +179,12 @@
         }
         public function getTotalApprovedByTheme($id_theme){
             return $this->selectCountWhere("articleOrdered","id_theme",$id_theme);
+        }
+        public function approve(){
+            $this->update("article",["status"=>"Approved"],"id_article",$this->id_article);
+        }
+        public function disapprove(){
+            $this->update("article",["status"=>"Disapproved"],"id_article",$this->id_article);
         }
     }
 

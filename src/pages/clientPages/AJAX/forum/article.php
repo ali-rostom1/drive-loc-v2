@@ -39,6 +39,14 @@ use App\classes\database;
     }else if(isset($_GET["unfavorite"])){
         $data = $db->selectWhereMultipleCondition("favorite",["id_user"=>$_COOKIE["user_id"],"id_article"=>$_GET["id_article"]]);
         $db->deleteWhere("favorite","id_fav",$data[0]["id_fav"]);
+    }else if(isset($_GET["approve"])){
+        $article = new Article($_GET["id_article"]);
+        $article->approve();
+        echo json_encode(["success"=>true]);
+    }else if(isset($_GET["disapprove"])){
+        $article = new Article($_GET["id_article"]);
+        $article->disapprove();
+        echo json_encode(["success"=>true]);
     }
 
 

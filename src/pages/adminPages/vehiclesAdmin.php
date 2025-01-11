@@ -39,6 +39,9 @@
                             <a href="../adminPages/categoriesAdmin.php" class="hover:text-gray-400 lg:p-4 py-2 text-white">Categories</a>
                             <a href="#" class="text-gray-400 lg:p-4 py-2">Vehicles</a>
                             <a href="../adminPages/reservationsAdmin.php" class="hover:text-gray-400 lg:p-4 py-2 text-white">Reservations</a>
+                            <a href="forum/article.php" class="hover:text-gray-400 lg:p-4 py-2 text-white">Articles</a>
+                            <a href="forum/theme.php" class="hover:text-gray-400 lg:p-4 py-2 text-white">Themes</a>
+                            <a href="forum/tag.php" class="hover:text-gray-400 lg:p-4 py-2 text-white">Tags</a>
                         </div>
                         <div class="flex-wrap inline-flex items-center py-1 space-x-2"> 
                             <a href="../authentification/deauth.php" class="bg-primary-500 border border-primary-500 hover:bg-primary-600 inline-block px-6 py-2 text-white rounded-lg">Log out</a> 
