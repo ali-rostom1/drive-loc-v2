@@ -52,7 +52,7 @@ La plateforme doit offrir une gestion multi-rôles, avec une expérience fluide 
 - **JavaScript (DataTable)** : Pour la gestion interactive et dynamique de la pagination dans les listes.
 
 ## **Liens Utiles**
-- **Présentation du projet**: [Lien vers la présentation](https://www.canva.com/design/DAGcBcpVmsk/M4YmU8f8Spdaz_Nl9xhloQ/edit?utm_content=DAGcBcpVmsk&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton)
+- **Présentation du projet**: [Lien vers la présentation](https://www.canva.com/design/DAGbXekC2EI/4NZi7RTYZRhUzZWjFMHn_Q/edit?utm_content=DAGbXekC2EI&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton)
 - **Dépôt GitHub**: [Lien vers le dépôt GitHub](https://github.com/ali-rostom1/drive-loc-v2)
 - **Planification du projet (GitHub Projects)**: [Lien vers GitHub Projects](https://github.com/users/ali-rostom1/projects/7)
 
